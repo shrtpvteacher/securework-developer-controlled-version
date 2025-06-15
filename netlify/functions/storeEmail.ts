@@ -1,7 +1,9 @@
-// netlify/functions/storeUserEmails.js
-const { blobs } = require("@netlify/blobs");
+// netlify/functions/storeEmail.ts
 
-exports.handler = async (event) => {
+import type { Handler } from '@netlify/functions';
+const { blobs } = require('@netlify/blobs');
+
+export const handler: Handler  = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }

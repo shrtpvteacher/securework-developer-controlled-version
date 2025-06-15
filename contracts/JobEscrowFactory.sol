@@ -37,7 +37,7 @@ contract JobEscrowFactory is Ownable {
             jobId,
             msg.sender,
             aiVerifier,
-            0, // Escrow amount will be set later via fundEscrow
+            0,
             _metadataURI
         );
 
