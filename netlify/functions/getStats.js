@@ -1,10 +1,11 @@
 const { ethers } = require("ethers");
-const factoryABI = require("../../abis/JobEscrowFactory.json");
-const jobABI = require("../../abis/JobEscrow.json");
 
 const provider = new ethers.JsonRpcProvider(process.env.ALCHEMY_API_URL);
 const factoryAddress = process.env.FACTORY_ADDRESS;
 const factory = new ethers.Contract(factoryAddress, factoryABI, provider);
+const factoryABI = require('./abis/JobEscrowFactory.json');
+const jobABI = require('./abis/JobEscrow.json');
+
 
 
 exports.handler = async () => {
