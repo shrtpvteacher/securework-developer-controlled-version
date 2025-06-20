@@ -1,9 +1,28 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Zap, Brain, FileText, CheckCircle, ArrowRight, Star, Users, DollarSign } from 'lucide-react';
-import DisclosureNotice from '../components/DisclosureNotice';
+import { Shield, Zap, Brain, FileText, ArrowRight } from 'lucide-react';
+
+
+
+
 
 const HomePage: React.FC = () => {
+    const [stats, setStats] = useState<{ label: string; value: string }[]>([]);
+    const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetch('/.netlify/functions/getStats')
+      .then((res) => res.json())
+      .then((data) => {
+        
+        setStats(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Failed to fetch stats:', err);
+        setLoading(false);
+      });
+  }, []);
+
   const features = [
     {
       icon: Shield,
@@ -45,22 +64,28 @@ const HomePage: React.FC = () => {
     },
     {
       number: 4,
-      title: 'Work & Submit',
-      description: 'Freelancer completes work and submits via Dropbox for verification'
+      title: 'Work Reviewed by AI',
+      description: 'Freelancer completes work and submits for review'
     },
     {
       number: 5,
-      title: 'AI + Client Verification',
-      description: 'AI reviews work quality, with client override capability for final approval'
+      title: 'Work Uploaded and Delivered',
+      description: 'Freelancer completes work uploads via Dropbox for delivery'
+    },
+   
+    {
+      number:6,
+      title: 'AI or Client Verification & Freelancer Gets Paid',
+      description: 'if AI passed, funds released automatically. If AI fails, client reviews and approves manually and funds released'
     }
   ];
 
-  const stats = [
+  /*const stats = [
     { label: 'Jobs Completed', value: '2,500+', icon: CheckCircle },
     { label: 'Active Users', value: '1,200+', icon: Users },
     { label: 'Total Value Secured', value: '$850K+', icon: DollarSign },
     { label: 'Success Rate', value: '98.5%', icon: Star }
-  ];
+  ];*/
 
   return (
     <>
@@ -103,15 +128,12 @@ const HomePage: React.FC = () => {
 
     
 
-      {/* Stats Section */}
+        {/* ✅ Stats Section (No Icons) */}
       <section className="relative bg-slate-200 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-100 to-emerald-100 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <stat.icon className="h-6 w-6 text-blue-600" />
-                </div>
+            {!loading && stats.map((stat, index) => (
+              <div key={index} className="text-center">
                 <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
                 <div className="text-gray-600">{stat.label}</div>
               </div>
