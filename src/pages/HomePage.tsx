@@ -126,43 +126,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-    
 
-       {/* Stats Section */}
-<section className="relative bg-slate-200 py-20">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-      {(stats && stats.length > 0 ? stats : [
-        { label: 'Jobs Completed', value: '0', icon: '✔️' },
-        { label: 'Active Users', value: '0', icon: '👥' },
-        { label: 'Total Value Secured', value: '$0', icon: '💰' },
-        { label: 'Success Rate', value: '0%', icon: '⭐' }
-      ]).map((stat, index) => (
-        <div key={index} className="text-center">
-          <div className="text-4xl mb-2">{'icon' in stat ? stat.icon : ''}</div>
-          <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-          <div className="text-gray-600">{stat.label}</div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-      {/* Stats Section */}
-{stats.length > 0 && (
-  <section className="relative bg-slate-200 py-20">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map((stat, index) => (
-          <div key={index} className="text-center">
-            <div className="text-4xl mb-2">📊</div>
-            <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-            <div className="text-gray-600">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
 
       {/* Features Section */}
       <section className="py-20 bg-gray-50">
@@ -276,6 +240,43 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+          
+
+       {/* Stats Section */}
+<section className="relative bg-slate-200 py-20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {(stats && stats.length > 0 ? stats : [
+        { label: 'Jobs Completed', value: '0', icon: '✔️' },
+        { label: 'Active Users', value: '0', icon: '👥' },
+        { label: 'Total Value Secured', value: '$0', icon: '💰' },
+        { label: 'Success Rate', value: '0%', icon: '⭐' }
+      ]).map((stat, index) => (
+        <div key={index} className="text-center">
+          <div className="text-4xl mb-2">{'icon' in stat ? stat.icon : ''}</div>
+          <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+          <div className="text-gray-600">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+      {/* Stats Section */}
+{stats.length > 0 && (
+  <section className="relative bg-slate-200 py-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map((stat, index) => (
+          <div key={index} className="text-center">
+            <div className="text-4xl mb-2">📊</div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+            <div className="text-gray-600">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
     </>
   );
 };
