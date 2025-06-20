@@ -1,15 +1,18 @@
 const { ethers } = require("ethers");
-
-const provider = new ethers.JsonRpcProvider(process.env.ALCHEMY_API_URL);
-const factoryAddress = process.env.FACTORY_ADDRESS;
-const factory = new ethers.Contract(factoryAddress, factoryABI, provider);
 const factoryABI = require('./abis/JobEscrowFactory.json');
 const jobABI = require('./abis/JobEscrow.json');
+
+const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
+
+const factoryAddress = process.env.FACTORY_ADDRESS;
+
+
 
 
 
 exports.handler = async () => {
   try {
+    const factory = new ethers.Contract(factoryAddress, factoryABI, provider);
     const jobCount = await factory.jobCounter();
     let completed = 0;
     let totalValue = ethers.BigNumber.from(0);
@@ -38,13 +41,12 @@ exports.handler = async () => {
       }
     }
 
-    const stats = [
-      { label: "Jobs Completed", value: completed },
-      { label: "Active Users", value: uniqueUsers.size },
-      { label: "Total Value Secured", value: `$${(parseFloat(ethers.utils.formatEther(totalValue)) * 3400).toFixed(0)} USD` }, // Approx ETH→USD
-      { label: "Success Rate", value: `${((completed / jobCount) * 100).toFixed(1)}%` }
+     const stats = [
+      { label: "Jobs Completed", value: `${completed}` },
+      { label: "Active Users", value: `${uniqueUsers.size}` },
+      { label: "Total Value Secured", value: `$${(parseFloat(ethers.utils.formatEther(totalValue)) * 3400).toFixed(0)} USD` },
+      { label: "Success Rate", value: jobCount > 0 ? `${((completed / jobCount) * 100).toFixed(1)}%` : "0.0%" }
     ];
-
     return {
       statusCode: 200,
       body: JSON.stringify(stats)
