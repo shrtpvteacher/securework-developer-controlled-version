@@ -1,4 +1,4 @@
-import axios from 'axios';
+/*import axios from 'axios';
 
 const pinataJWT = process.env.PINATA_JWT;
 
@@ -145,4 +145,4 @@ export const getIPFSGatewayUrl = (ipfsUri: string): string => {
     : ipfsUri;
   
   return `https://gateway.pinata.cloud/ipfs/${hash}`;
-};
+}; */
