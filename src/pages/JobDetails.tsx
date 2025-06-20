@@ -39,15 +39,14 @@ const JobDetails: React.FC = () => {
         return 'bg-blue-100 text-blue-800';
       case 'accepted':
         return 'bg-green-100 text-green-800';
-      case 'in_progress':
-        return 'bg-yellow-100 text-yellow-800';
+    
       case 'submitted':
         return 'bg-purple-100 text-purple-800';
       case 'reviewing':
         return 'bg-orange-100 text-orange-800';
       case 'completed':
         return 'bg-emerald-100 text-emerald-800';
-      case 'disputed':
+      case 'cancelled':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
@@ -66,7 +65,7 @@ const JobDetails: React.FC = () => {
     updateJob(job.id, { status: 'accepted' });
   };
 
-  const handleStartWork = () => {
+  const handleSubmitForReview = () => {
     updateJob(job.id, { status: 'in_progress' });
   };
 
@@ -151,21 +150,6 @@ const JobDetails: React.FC = () => {
               )}
 
               {job.status === 'accepted' && (
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Start Working</h3>
-                  <p className="text-gray-600 mb-4">
-                    You've accepted this job. Click below to mark it as in progress and begin working.
-                  </p>
-                  <button
-                    onClick={handleStartWork}
-                    className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
-                  >
-                    Start Work
-                  </button>
-                </div>
-              )}
-
-              {job.status === 'in_progress' && (
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Submit Work</h3>
                   <p className="text-gray-600 mb-4">

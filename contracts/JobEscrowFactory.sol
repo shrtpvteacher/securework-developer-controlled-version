@@ -52,10 +52,13 @@ contract JobEscrowFactory is Ownable {
         require(sent, "Failed to transfer creation fee");
     }
 
-    function linkFreelancer(uint256 jobId, address freelancer) external {
-        require(msg.sender == JobEscrow(payable(jobContracts[jobId])).client(), "Only client can assign freelancer");
+    function assignFreelancer(uint256 jobId, address freelancer) external {
+        JobEscrow escrow = JobEscrow(payable(jobContracts[jobId]));
+        require(msg.sender == escrow.client(), "Only client can assign freelancer");
+
+        escrow.assignFreelancer(freelancer);
         freelancerJobs[freelancer].push(jobId);
-    }
+}
 
     function getClientJobs(address _client) external view returns (uint256[] memory) {
         return clientJobs[_client];

@@ -1,3 +1,5 @@
+// src/context/JobContext.tsx
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export interface Job {
@@ -7,7 +9,7 @@ export interface Job {
   price: string;
   clientAddress: string;
   freelancerAddress: string;
-  status: 'created' | 'funded' | 'accepted' | 'in_progress' | 'submitted' | 'reviewing' | 'completed' | 'disputed' | 'cancelled';
+  status: 'created' | 'funded' | 'accepted' | 'submitted' | 'verifiedBy' | 'cancelled';
   createdAt: Date;
   metadataURI?: string;
   contractAddress?: string;
@@ -27,7 +29,7 @@ export interface Job {
 interface JobContextType {
   jobs: Job[];
   addJob: (job: Job) => void;
-  updateJob: (jobId: string, updates: Partial<Job>) => void;
+  updateJob: (jobId: string, updates: Partial<Omit<Job, 'title' | 'description' | 'price'>>) => void;
   getJobsByRole: (address: string, role: 'client' | 'freelancer') => Job[];
   getJobById: (jobId: string) => Job | undefined;
 }
@@ -47,35 +49,23 @@ interface JobProviderProps {
 }
 
 export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
-  const [jobs, setJobs] = useState<Job[]>([
-    // Mock data for demonstration
-    {
-      id: '1',
-      title: 'Build React Dashboard',
-      description: 'Create a modern dashboard with charts and analytics',
-      price: '2.5',
-      clientAddress: '0x1234567890123456789012345678901234567890',
-      freelancerAddress: '0x0987654321098765432109876543210987654321',
-      status: 'in_progress',
-      createdAt: new Date('2024-01-15'),
-      metadataURI: 'ipfs://QmXyz123...',
-      contractAddress: '0xabcd1234...'
-    }
-  ]);
+  const [jobs, setJobs] = useState<Job[]>([]); // Start with empty list
 
   const addJob = (job: Job) => {
     setJobs(prev => [...prev, job]);
   };
 
-  const updateJob = (jobId: string, updates: Partial<Job>) => {
-    setJobs(prev => prev.map(job => 
+  // Allows updating job status or off-chain fields (e.g., dropbox, aiReview)
+  // Does NOT allow updating core job terms: title, description, or price
+  const updateJob = (jobId: string, updates: Partial<Omit<Job, 'title' | 'description' | 'price'>>) => {
+    setJobs(prev => prev.map(job =>
       job.id === jobId ? { ...job, ...updates } : job
     ));
   };
 
   const getJobsByRole = (address: string, role: 'client' | 'freelancer') => {
-    return jobs.filter(job => 
-      role === 'client' 
+    return jobs.filter(job =>
+      role === 'client'
         ? job.clientAddress.toLowerCase() === address.toLowerCase()
         : job.freelancerAddress.toLowerCase() === address.toLowerCase()
     );

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { X, Upload, DollarSign, User, FileText, Loader } from 'lucide-react';
 import { useJobs } from '../context/JobContext';
 import { useWallet } from '../context/WalletContext';
-import { uploadMetadataToIPFS } from '../logic/ipfsUploader';
+import { uploadMetadataToIPFS } from '../logic/ipfsUploader.ts';
 import { getEthPrice } from '../logic/getEthPrice';
 
 interface CreateJobModalProps {
@@ -151,4 +151,48 @@ const CreateJobModal: React.FC<CreateJobModalProps> = ({ onClose }) => {
                 <input
                   type="text"
                   value={formData.title}
-                  onChange={(e) => handleInputChange('title',
+                      onChange={(e) => handleInputChange('title', e.target.value)}
+                  className="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              {/* You can continue adding form fields here */}
+            </div>
+          )}
+
+          {/* Add steps 2 and 3 similarly */}
+        </div>
+
+        <div className="px-6 py-4 flex justify-between items-center border-t border-gray-200">
+          <button
+            onClick={() => setStep(step - 1)}
+            disabled={step === 1}
+            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50"
+          >
+            Back
+          </button>
+
+          {step < 4 ? (
+            <button
+              onClick={() => isStepValid() && setStep(step + 1)}
+              disabled={!isStepValid()}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              onClick={handleCreateJob}
+              disabled={isLoading}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center"
+            >
+              {isLoading ? <Loader className="animate-spin mr-2 h-4 w-4" /> : <Upload className="mr-2 h-4 w-4" />}
+              Create Job
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CreateJobModal;

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useJobs } from '../context/JobContext';
 import { useWallet } from '../context/WalletContext';
-import { uploadMetadataToIPFS } from '../logic/ipfsUploader';
+import { uploadMetadataToIPFS } from '../logic/ipfsUploader.ts';
 import { storeEmail } from '../logic/storeEmail';
 import { deployJobContract } from '../logic/deployJobContract';
 import { getEthPrice } from '../logic/getEthPrice';

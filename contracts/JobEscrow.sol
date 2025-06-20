@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract JobEscrow is ERC721URIStorage {
-    enum JobStatus { Created, Funded, Accepted, Completed, Cancelled, EscrowFundsReturned }
+    enum JobStatus { Created, Funded, Accepted, ClientVerificationRequested, Completed, Cancelled, EscrowFundsReturned }
 
     uint256 public jobId;
     address public client;
@@ -29,6 +29,7 @@ contract JobEscrow is ERC721URIStorage {
     uint256 public freelancerTokenId;
 
     event JobFunded(address indexed client, uint256 amount);
+    event FreelancerAssigned(address indexed freelancer);
     event JobAccepted(address indexed freelancer, uint256 timestamp);
     event JobCompleted(uint256 timestamp, string verifiedBy, string dropboxLink);
     event FundsReleased(address indexed to, uint256 amount);
@@ -62,11 +63,20 @@ contract JobEscrow is ERC721URIStorage {
         _;
     }
 
-    function fundEscrow(address _freelancer) external payable onlyClient {
+    function assignFreelancer(address _freelancer) external onlyClient {
+        require(freelancer == address(0), "Freelancer already assigned");
+        require(_freelancer != address(0), "Invalid address");
+        freelancer = _freelancer;
+        emit FreelancerAssigned(_freelancer);
+    }
+
+ 
+
+    function fundEscrow() external payable onlyClient {
         require(status == JobStatus.Created, "Already funded");
         require(msg.value == amount, "Must match agreed amount");
 
-        freelancer = _freelancer;
+        
         status = JobStatus.Funded;
 
         clientTokenId = 0;
@@ -76,9 +86,9 @@ contract JobEscrow is ERC721URIStorage {
         emit JobFunded(msg.sender, msg.value);
     }
 
-    function acceptJob() external onlyFreelancer {
+   function acceptJob() external onlyFreelancer {
         require(status == JobStatus.Funded, "Must be funded");
-        require(freelancerTokenId == 0, "NFT already minted");
+        require(freelancerTokenId == 1, "NFT already minted");
 
         status = JobStatus.Accepted;
         freelancerTokenId = 1;
@@ -86,7 +96,7 @@ contract JobEscrow is ERC721URIStorage {
         _setTokenURI(freelancerTokenId, metadataURI);
 
         emit JobAccepted(msg.sender, block.timestamp);
-    }
+    } 
 
     function requestClientVerification(string memory dropboxLink) external onlyFreelancer {
         require(status == JobStatus.Accepted, "Job not accepted");
@@ -121,7 +131,7 @@ contract JobEscrow is ERC721URIStorage {
     }
 
     function cancelJob() external onlyClient {
-        require(status == JobStatus.Created, "Too late to cancel");
+        require(status == JobStatus.Created|| status != JobStatus.Accepted, "Cannot cancel either not created or already accepted, please negotiate with freelancer");
         status = JobStatus.Cancelled;
         emit JobCancelled(msg.sender, block.timestamp);
     }

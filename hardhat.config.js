@@ -1,38 +1,32 @@
-require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
+require("@nomicfoundation/hardhat-toolbox");
+
+
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
-    version: "0.8.19",
+    version: "0.8.20",
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200
-      }
-    }
+        runs: 20,
+      },
+    },
   },
   networks: {
     hardhat: {
-      chainId: 1337
-    },
-    localhost: {
-      url: "http://127.0.0.1:8545",
-      chainId: 1337
-    },
-    sepolia: {
-      url: process.env.VITE_ALCHEMY_RPC_URL || "",
-      accounts: process.env.VITE_AI_VERIFIER_PRIVATE_KEY ? [process.env.VITE_AI_VERIFIER_PRIVATE_KEY] : []
+      chainId: 1337,
+      
+        
     }
-  },
-  paths: {
-    sources: "./contracts",
-    tests: "./test",
-    cache: "./cache",
-    artifacts: "./artifacts"
-  },
-  typechain: {
-    outDir: "src/types/contracts",
-    target: "ethers-v6"
+   /* sepolia: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [
+        SEPOLIA_DEPLOYER_PRIVATE_KEY,
+        SEPOLIA_AI_VERIFIER_PRIVATE_KEY
+      ].filter(Boolean),
+      chainId: 11155111,
+    } */
   }
 };
