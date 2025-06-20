@@ -57,7 +57,7 @@ const About: React.FC = () => {
         </p>
 
 
-   <div className="flex items-center gap-3 bg-gray-900 p-4 rounded-xl shadow-md w-fit mx-auto mt-6">
+   <div className="flex items-center gap-3 w-fit mx-auto mt-6">
   <Zap
     size={32}
     stroke="none"
