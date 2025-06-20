@@ -132,7 +132,7 @@ const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
             </button>
           )}
           
-          {userRole === 'freelancer' && job.status === 'in_progress' && (
+          {userRole === 'freelancer' && job.status === 'accepted' && (
             <button className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
               Submit Work
             </button>
