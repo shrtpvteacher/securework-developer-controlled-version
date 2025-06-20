@@ -14,7 +14,6 @@ function App() {
     <WalletProvider>
       <JobProvider>
         <Router>
-        <div className="min-h-screen bg-red-500 text-white">
 
             <Navbar />
             <Routes>
@@ -24,7 +23,7 @@ function App() {
               <Route path="/job/:jobId" element={<JobDetails />} />
               <Route path="/about" element={<About />} />
             </Routes>
-          </div>
+        
         </Router>
       </JobProvider>
     </WalletProvider>

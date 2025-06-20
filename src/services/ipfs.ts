@@ -1,4 +1,15 @@
-import { config } from '../config/env';
+import axios from 'axios';
+
+const pinataJWT = process.env.PINATA_JWT;
+
+export async function handler(event) {
+  try {
+    if (!pinataJWT) {
+      return {
+        statusCode: 401,
+        body: JSON.stringify({ error: "Missing Pinata JWT." }),
+      };
+    }
 
 export interface JobMetadata {
   title: string;
@@ -10,8 +21,7 @@ export interface JobMetadata {
   freelancerAddress: string;
   createdAt: string;
   jobId?: string;
-  version: string;
-}
+} ;
 
 export const uploadJobMetadata = async (metadata: JobMetadata): Promise<string> => {
   try {
@@ -22,7 +32,6 @@ export const uploadJobMetadata = async (metadata: JobMetadata): Promise<string> 
     const metadataWithTimestamp = {
       ...metadata,
       createdAt: new Date().toISOString(),
-      version: '1.0'
     };
 
     // Upload to IPFS via Pinata API

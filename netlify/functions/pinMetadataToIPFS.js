@@ -6,9 +6,9 @@ exports.handler = async function (event) {
 
   try {
     const body = JSON.parse(event.body);
-    const { title, description, tasks, creatorAddress, freelancerAddress, amount } = body;
+    const { title, description, requirements, deliverables, creatorAddress, freelancerAddress, amount } = body;
 
-    if (!title || !description || !Array.isArray(tasks) || !creatorAddress || !amount) {
+    if (!title || !description || !Array.isArray(requirements, deliverables) || !creatorAddress || !amount) {
       return {
         statusCode: 400,
         body: JSON.stringify({ error: "Missing required metadata fields." })
@@ -18,7 +18,8 @@ exports.handler = async function (event) {
     const metadata = {
       title,
       description,
-      tasks,
+      requirements,
+      deliverables,
       creatorAddress,
       freelancerAddress: freelancerAddress || '',
       amount,
@@ -41,12 +42,14 @@ exports.handler = async function (event) {
       }
     );
 
+    const ipfsHash = response.data.IpfsHash;
+
     return {
       statusCode: 200,
       body: JSON.stringify({
         ipfsUrl: `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`,
-        ipfsHash: response.data.IpfsHash
-      })
+        ipfsHash,
+      }),
     };
   } catch (error) {
     return {
