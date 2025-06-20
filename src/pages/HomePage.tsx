@@ -102,7 +102,7 @@ const HomePage: React.FC = () => {
               <br />
              
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-300 mt-16 mb-8 max-w-3xl mx-auto leading-relaxed">
               The first AI-powered job escrow platform using smart contracts to secure payments 
               and verify work quality automatically.
             </p>
