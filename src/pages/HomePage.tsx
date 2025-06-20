@@ -8,19 +8,19 @@ import { Shield, Zap, Brain, FileText, ArrowRight } from 'lucide-react';
 
 const HomePage: React.FC = () => {
     const [stats, setStats] = useState<{ label: string; value: string }[]>([]);
-    const [loading, setLoading] = useState(true);
+    
   useEffect(() => {
-    fetch('/.netlify/functions/getStats')
-      .then((res) => res.json())
-      .then((data) => {
-        
+    const fetchStats = async () => {
+      try {
+        const res = await fetch('/.netlify/functions/getStats');
+        const data = await res.json();
         setStats(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Failed to fetch stats:', err);
-        setLoading(false);
-      });
+      } catch (err) {
+        console.error('Error fetching stats:', err);
+      }
+    };
+
+    fetchStats();
   }, []);
 
   const features = [
@@ -128,25 +128,41 @@ const HomePage: React.FC = () => {
 
     
 
-        {/* Stats Section */}
-      <section className="relative bg-slate-200 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {(stats.length > 0 ? stats : [
-              { label: 'Jobs Completed', value: '2,500+', icon: '✔️' },
-              { label: 'Active Users', value: '1,200+', icon: '👥' },
-              { label: 'Total Value Secured', value: '$850K+', icon: '💰' },
-              { label: 'Success Rate', value: '98.5%', icon: '⭐' }
-            ]).map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl mb-2">{'icon' in stat ? stat.icon : ''}</div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+       {/* Stats Section */}
+<section className="relative bg-slate-200 py-20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {(stats && stats.length > 0 ? stats : [
+        { label: 'Jobs Completed', value: '0', icon: '✔️' },
+        { label: 'Active Users', value: '0', icon: '👥' },
+        { label: 'Total Value Secured', value: '$0', icon: '💰' },
+        { label: 'Success Rate', value: '0%', icon: '⭐' }
+      ]).map((stat, index) => (
+        <div key={index} className="text-center">
+          <div className="text-4xl mb-2">{'icon' in stat ? stat.icon : ''}</div>
+          <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+          <div className="text-gray-600">{stat.label}</div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+      {/* Stats Section */}
+{stats.length > 0 && (
+  <section className="relative bg-slate-200 py-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map((stat, index) => (
+          <div key={index} className="text-center">
+            <div className="text-4xl mb-2">📊</div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+            <div className="text-gray-600">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
 
       {/* Features Section */}
       <section className="py-20 bg-gray-50">
