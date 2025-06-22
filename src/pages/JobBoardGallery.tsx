@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import JobEscrowFactoryABI from '../../netlify/abis/JobEscrowFactoryABI.json';
+import JobEscrowFactoryABI from '../../netlify/functions/abis/JobEscrowFactoryABI.json';
 import { Link } from 'react-router-dom';
 
 const FACTORY_ADDRESS = import.meta.env.VITE_FACTORY_ADDRESS as string;
