@@ -724,8 +724,8 @@
       "artifacts": []
     },
     "/Users/coding/Desktop/securework/contracts/JobEscrowFactory.sol": {
-      "lastModificationDate": 1750279653575,
-      "contentHash": "9ecfa78fa9275ebc3187b21a6a9a5b6c",
+      "lastModificationDate": 1750548117196,
+      "contentHash": "5f80efbec0db6a6308be2b6e7bb8d38f",
       "sourceName": "contracts/JobEscrowFactory.sol",
       "solcConfig": {
         "version": "0.8.20",
