@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { uploadMetadataToIPFS } from '../logic/ipfsUploader';
 import { storeEmail } from '../logic/storeEmail';
-import { deployJobContract } from '../logic/deployJobContract';
-import { fetchContractCreationFee } from '../logic/fetchContractCreationFee';
+import { deployJobContract } from '../logic/deployJobContract.js';
+import { fetchContractCreationFee } from '../logic/fetchContractCreationFee.js';
 import { useAccount } from 'wagmi';
 
 const CreateJobPage: React.FC = () => {
