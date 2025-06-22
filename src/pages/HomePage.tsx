@@ -114,7 +114,7 @@ const HomePage: React.FC = () => {
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                to="/freelancer-dashboard"
+                to="/job-board"
                 className="group bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
               >
                 <span>Find Work</span>
