@@ -3,11 +3,8 @@
 export interface Metadata {
   title: string;
   description: string;
-  price: string;
-  freelancerAddress: string;
-  creatorAddress: string;
-  creatorEmail: string;
-  freelancerEmail: string;
+  jobPay: string;
+  clientAddress: string;
   requirements: string[];
   deliverables: string[];
 }

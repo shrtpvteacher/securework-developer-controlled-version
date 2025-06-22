@@ -111,7 +111,7 @@ Be thorough but fair in your evaluation. The work should pass if it meets the ba
       
       // Connect to blockchain
       const provider = new ethers.JsonRpcProvider(process.env.ALCHEMY_RPC_URL);
-      const aiVerifierWallet = new ethers.Wallet(process.env.AI_VERIFIER_PRIVATE_KEY, provider);
+      const aiVerifier = new ethers.Wallet(process.env.AI_VERIFIER_PRIVATE_KEY, provider);
       
       // Job Escrow ABI (simplified)
       const jobEscrowABI = [

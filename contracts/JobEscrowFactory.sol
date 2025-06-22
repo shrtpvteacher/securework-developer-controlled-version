@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract JobEscrowFactory is Ownable {
     uint256 public jobCounter;
     uint256 public contractCreationFee = 0.001 ether;
+    address[] public allJobs;
 
     address public contractFeeCollector;
     address public aiVerifier;
@@ -44,6 +45,7 @@ contract JobEscrowFactory is Ownable {
         jobContract = address(newJob);
         jobContracts[jobId] = jobContract;
         clientJobs[msg.sender].push(jobId);
+        allJobs.push(jobContract);
 
         emit JobCreated(jobId, jobContract, msg.sender, _metadataURI);
 
@@ -67,6 +69,11 @@ contract JobEscrowFactory is Ownable {
     function getFreelancerJobs(address _freelancer) external view returns (uint256[] memory) {
         return freelancerJobs[_freelancer];
     }
+
+    function getAllJobs() external view returns (address[] memory) {
+    return allJobs;
+}
+
 
     function updateContractCreationFee(uint256 _newFee) external onlyOwner {
         contractCreationFee = _newFee;

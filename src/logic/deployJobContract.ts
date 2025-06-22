@@ -1,31 +1,30 @@
-import { ethers } from 'ethers';
-import JobEscrowFactoryABI from '../abis/JobEscrowFactory.json';
-import { JOB_ESCROW_FACTORY_ADDRESS } from '../config/contract.config';
+// logic/deployJobContract.ts
 
-export async function deployJobContract(metadataURI: string, ethAmount: string): Promise<string> {
-  if (!window.ethereum) {
-    throw new Error("MetaMask not found. Please install MetaMask.");
+import { ethers } from 'ethers';
+import JobEscrowFactoryABI from '../../netlify/functions/abis/JobEscrowFactoryABI.json';
+
+const FACTORY_ADDRESS = import.meta.env.VITE_FACTORY_ADDRESS as string;
+
+export async function deployJobContract(metadataURI: string, jobPay: string): Promise<string> {
+  if (typeof window.ethereum === 'undefined') {
+    throw new Error('MetaMask is not available');
   }
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
-  const factory = new ethers.Contract(JOB_ESCROW_FACTORY_ADDRESS, JobEscrowFactoryABI, signer);
+  const factory = new ethers.Contract(FACTORY_ADDRESS, JobEscrowFactoryABI, signer);
 
-  const value = ethers.utils.parseEther(ethAmount);
-
-  const tx = await factory.createJob(metadataURI, {
-    value,
-    gasLimit: 4500000
+  const tx = await factory.createJobEscrow(metadataURI, {
+    value: ethers.utils.parseEther(jobPay),
   });
 
   const receipt = await tx.wait();
 
-  const event = receipt.events?.find((e) => e.event === "JobCreated");
-  const jobAddress = event?.args?.jobAddress;
-
-  if (!jobAddress) {
-    throw new Error("JobCreated event not found in transaction receipt.");
+  const jobCreatedEvent = receipt.events?.find((e: ethers.Event) => e.event === 'JobCreated');
+  if (!jobCreatedEvent || !jobCreatedEvent.args || !jobCreatedEvent.args[0]) {
+    throw new Error('JobCreated event not found in transaction receipt');
   }
 
+  const jobAddress: string = jobCreatedEvent.args[0];
   return jobAddress;
 }

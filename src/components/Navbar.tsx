@@ -10,6 +10,7 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/job-board-gallery', label: 'Job Board Gallery' },
     { path: '/client-dashboard', label: 'Client Dashboard' },
     { path: '/freelancer-dashboard', label: 'Freelancer Dashboard' },
     { path: '/about', label: 'About' },
