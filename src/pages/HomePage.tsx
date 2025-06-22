@@ -124,7 +124,41 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
-
+           {/* Stats Section */}
+<section className="relative bg-slate-200 py-20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {(stats && stats.length > 0 ? stats : [
+        { label: 'Jobs Completed', value: '1000+', icon: '✔️' },
+        { label: 'Active Users', value: '2000+', icon: '👥' },
+        { label: 'Total Value Secured', value: '$20000+', icon: '💰' },
+        { label: 'Completed Projects', value: '500+' },
+      ]).map((stat, index) => (
+        <div key={index} className="text-center">
+          <div className="text-4xl mb-2">{'icon' in stat ? stat.icon : ''}</div>
+          <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+          <div className="text-gray-600">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+      {/* Stats Section */}
+{stats.length > 0 && (
+  <section className="relative bg-slate-200 py-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map((stat, index) => (
+          <div key={index} className="text-center">
+            <div className="text-4xl mb-2">📊</div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+            <div className="text-gray-600">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
 
 
       {/* Features Section */}
@@ -225,13 +259,13 @@ const HomePage: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              to="/client-dashboard"
+              to="/create-job"
               className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
               Post a Job
             </Link>
             <Link
-              to="/freelancer-dashboard"
+              to="/job-board"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105"
             >
               Browse Jobs
@@ -239,43 +273,6 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
-          
-
-       {/* Stats Section */}
-<section className="relative bg-slate-200 py-20">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-      {(stats && stats.length > 0 ? stats : [
-        { label: 'Jobs Completed', value: '0', icon: '✔️' },
-        { label: 'Active Users', value: '0', icon: '👥' },
-        { label: 'Total Value Secured', value: '$0', icon: '💰' },
-        { label: 'Success Rate', value: '0%', icon: '⭐' }
-      ]).map((stat, index) => (
-        <div key={index} className="text-center">
-          <div className="text-4xl mb-2">{'icon' in stat ? stat.icon : ''}</div>
-          <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-          <div className="text-gray-600">{stat.label}</div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-      {/* Stats Section */}
-{stats.length > 0 && (
-  <section className="relative bg-slate-200 py-20">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map((stat, index) => (
-          <div key={index} className="text-center">
-            <div className="text-4xl mb-2">📊</div>
-            <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-            <div className="text-gray-600">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
     </>
   );
 };
