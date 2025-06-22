@@ -1,6 +1,6 @@
 const { ethers } = require("ethers");
-const factoryABI = require('./abis/JobEscrowFactory.json');
-const jobABI = require('./abis/JobEscrow.json');
+const factoryABI = require('./abis/JobEscrowFactoryABI.json');
+const jobABI = require('./abis/JobEscrowABI.json');
 
 const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
 
