@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-2 sm:px-2 lg:px-1">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-1 group">
+          <Link to="/" className="flex items-center space-x-2 group">
             <div className="p-2 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-lg group-hover:shadow-lg transition-all duration-300">
               <Shield className="h-6 w-6 text-white" />
             </div>
@@ -34,12 +34,12 @@ const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex px-1 items-center space-x-3">
+          <div className="hidden md:flex px-1 items-center space-x-2">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-2 py-4 rounded-md text-sm font-medium transition-all duration-200 ${
+                className={`px-1 py-4 rounded-md text-sm font-medium transition-all duration-200 ${
                   isActive(link.path)
                     ? 'text-blue-600 bg-blue-50'
                     : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
