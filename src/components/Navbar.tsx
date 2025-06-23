@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/job-board', label: 'Job Board Gallery' },
-    { path: '/create-job', label: 'Client Dashboard' },
+    { path: '/create-job', label: 'Create Job Page' },
     { path: '/client-dashboard', label: 'Client Dashboard' },
     { path: '/freelancer-dashboard', label: 'Freelancer Dashboard' },
     
