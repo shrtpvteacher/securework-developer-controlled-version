@@ -1,4 +1,4 @@
-import { config } from '../config/env';
+
 
 export interface DeliveryResult {
   success: boolean;
@@ -17,8 +17,8 @@ export const deliverWorkFiles = async (
     }
 
     // In a real implementation, this would:
-    // 1. Download files from IPFS
-    // 2. Upload to Dropbox
+    // 1. Download metadata from IPFS
+    // 2. Upload zip file Dropbox
     // 3. Create a shared link
     // 4. Send email to client with download link
 

@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import JobEscrowABI from '../abis/JobEscrow.json';
+import JobEscrowABI from '../../netlify/functions/abis/JobEscrowABI.json';
 
 export async function fundEscrow(contractAddress: string, ethAmount: string) {
   if (!window.ethereum) throw new Error('MetaMask not found');

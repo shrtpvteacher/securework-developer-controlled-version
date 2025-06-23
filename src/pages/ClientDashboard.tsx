@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Plus, Briefcase, Clock, CheckCircle, AlertCircle, Eye } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 import { useJobs } from '../context/JobContext';
-import CreateJobModal from '../components/CreateJobModal';
+import CreateJobModal from '../components/archived/CreateJobModal';
 import JobCard from '../components/JobCard';
 
 const ClientDashboard: React.FC = () => {

@@ -6,7 +6,7 @@ export interface Job {
   id: string;
   title: string;
   description: string;
-  price: string;
+  jobPay: string;
   clientAddress: string;
   freelancerAddress: string;
   status: 'created' | 'funded' | 'accepted' | 'submitted' | 'verifiedBy' | 'cancelled';

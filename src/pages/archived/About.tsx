@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { Zap } from 'lucide-react';
 
 const About: React.FC = () => {
@@ -74,4 +74,4 @@ const About: React.FC = () => {
   
   )};
 
-export default About;
+export default About;  */

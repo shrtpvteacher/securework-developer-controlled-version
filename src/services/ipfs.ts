@@ -1,4 +1,4 @@
-/*import axios from 'axios';
+import axios from 'axios';
 
 const pinataJWT = process.env.PINATA_JWT;
 
@@ -16,7 +16,7 @@ export interface JobMetadata {
   description: string;
   requirements: string[];
   deliverables: string[];
-  price: string;
+  jobPrice: string;
   clientAddress: string;
   freelancerAddress: string;
   createdAt: string;
@@ -145,4 +145,4 @@ export const getIPFSGatewayUrl = (ipfsUri: string): string => {
     : ipfsUri;
   
   return `https://gateway.pinata.cloud/ipfs/${hash}`;
-}; */
+}; 

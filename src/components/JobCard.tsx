@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, DollarSign, User, ArrowRight, Clock, CheckCircle } from 'lucide-react';
+import { Calendar, User, ArrowRight, Clock, CheckCircle } from 'lucide-react';
 import { Job } from '../context/JobContext';
 
 interface JobCardProps {
@@ -9,7 +9,7 @@ interface JobCardProps {
 }
 
 const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
-  const getStatusColor = (status: string) => {
+  /*const getStatusColor = (status: string) => {
     switch (status) {
       case 'created':
         return 'bg-gray-100 text-gray-800';
@@ -17,20 +17,16 @@ const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
         return 'bg-blue-100 text-blue-800';
       case 'accepted':
         return 'bg-green-100 text-green-800';
-      case 'in_progress':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'submitted':
-        return 'bg-purple-100 text-purple-800';
       case 'reviewing':
         return 'bg-orange-100 text-orange-800';
+        case 'submitted':   
+        return 'bg-yellow-100 text-yellow-800';
       case 'completed':
         return 'bg-emerald-100 text-emerald-800';
-      case 'disputed':
-        return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
-  };
+  }; */
 
   const formatStatus = (status: string) => {
     return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
@@ -44,7 +40,7 @@ const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
     switch (status) {
       case 'completed':
         return <CheckCircle className="h-4 w-4" />;
-      case 'in_progress':
+      case 'accepted':
       case 'submitted':
       case 'reviewing':
         return <Clock className="h-4 w-4" />;
@@ -64,13 +60,10 @@ const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
             </h3>
             <div className="flex items-center space-x-2">
               {getStatusIcon(job.status)}
-              <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
-                {formatStatus(job.status)}
-              </span>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-xl font-bold text-emerald-600">{job.price} ETH</div>
+            <div className="text-xl font-bold text-emerald-600">{job.jobPay} ETH</div>
           </div>
         </div>
 

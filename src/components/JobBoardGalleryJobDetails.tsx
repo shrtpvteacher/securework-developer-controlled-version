@@ -25,7 +25,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum as any);
           client,
           freelancer,
           aiVerifier,
-          amount,
+          jobPay,
           status,
           metadataURI,
         ] = await Promise.all([
@@ -33,7 +33,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum as any);
           contract.client(),
           contract.freelancer(),
           contract.aiVerifier(),
-          contract.amount(),
+          contract.jobPay(),
           contract.status(),
           contract.metadataURI()
         ]);
@@ -43,7 +43,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum as any);
           client,
           freelancer,
           aiVerifier,
-          amount: ethers.utils.formatEther(amount),
+          amount: ethers.utils.formatEther(jobPay),
           status,
           metadataURI
         });
@@ -105,7 +105,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum as any);
           </div>
           <div className="flex items-center space-x-2">
             <FileText className="w-4 h-4 text-gray-500" />
-            <span><strong>Amount:</strong> {jobData.amount} ETH</span>
+            <span><strong>Job Pays:</strong> {jobData.jobPay} ETH</span>
           </div>
         </div>
 

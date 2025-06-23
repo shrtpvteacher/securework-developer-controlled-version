@@ -1,4 +1,4 @@
-
+/*
 import React, { useState } from 'react';
 import { uploadMetadataToIPFS } from '../logic/ipfsUploader';
 import { storeEmail } from '../logic/storeEmail';
@@ -99,4 +99,4 @@ const addArrayField = (field: 'requirements' | 'deliverables') => {
   );
 };
 
-export default CreateJobModal;
+export default CreateJobModal; */
