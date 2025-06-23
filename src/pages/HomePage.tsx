@@ -127,12 +127,12 @@ const HomePage: React.FC = () => {
            {/* Stats Section */}
 <section className="relative bg-slate-200 py-20">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div className="grid grid-cols-3 md:grid-cols-3 gap-8">
       {(stats && stats.length > 0 ? stats : [
         { label: 'Jobs Completed', value: '1000+', icon: '✔️' },
         { label: 'Active Users', value: '2000+', icon: '👥' },
         { label: 'Total Value Secured', value: '$20000+', icon: '💰' },
-        { label: 'Completed Projects', value: '500+' },
+       
       ]).map((stat, index) => (
         <div key={index} className="text-center">
           <div className="text-4xl mb-2">{'icon' in stat ? stat.icon : ''}</div>
