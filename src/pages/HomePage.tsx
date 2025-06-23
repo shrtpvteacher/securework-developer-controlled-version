@@ -131,7 +131,7 @@ const HomePage: React.FC = () => {
       {(stats && stats.length > 0 ? stats : [
         { label: 'Jobs Completed', value: '1000+', icon: '✔️' },
         { label: 'Active Users', value: '2000+', icon: '👥' },
-        { label: 'Total Value Secured', value: '$20000+', icon: '💰' },
+        { label: 'Total Value Secured', value: '$300000+', icon: '💰' },
        
       ]).map((stat, index) => (
         <div key={index} className="text-center">
