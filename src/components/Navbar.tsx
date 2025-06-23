@@ -34,12 +34,12 @@ const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex px-1 items-center space-x-2">
+          <div className="hidden md:flex px-2 items-center space-x-2">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-1 py-4 rounded-md text-sm font-medium transition-all duration-200 ${
+                className={`px-2 py-4 rounded-md text-sm font-medium transition-all duration-200 ${
                   isActive(link.path)
                     ? 'text-blue-600 bg-blue-50'
                     : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
