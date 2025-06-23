@@ -22,34 +22,40 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-1 sm:px-1 lg:px-1">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="p-2 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-lg group-hover:shadow-lg transition-all duration-300">
-              <Shield className="h-6 w-6 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
-              SecureWork
-            </span>
-          </Link>
+       <div className="flex justify-between items-center h-16">
+  {/* Left: Logo + Nav Links */}
+  <div className="flex items-center space-x-6">
+    <Link to="/" className="flex items-center space-x-2 group">
+      <div className="p-2 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-lg group-hover:shadow-lg transition-all duration-300">
+        <Shield className="h-6 w-6 text-white" />
+      </div>
+      <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+        SecureWork
+      </span>
+    </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`px-1 py-4 rounded-md text-sm font-medium transition-all duration-200 ${
-                  isActive(link.path)
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <WalletConnect />
-          </div>
+    {/* Nav Links */}
+    <div className="hidden md:flex items-center space-x-4">
+      {navLinks.map((link) => (
+        <Link
+          key={link.path}
+          to={link.path}
+          className={`px-1 py-4 rounded-md text-sm font-medium transition-all duration-200 ${
+            isActive(link.path)
+              ? 'text-blue-600 bg-blue-50'
+              : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+          }`}
+        >
+          {link.label}
+        </Link>
+      ))}
+    </div>
+  </div>
+
+  {/* Right: Wallet Button */}
+  <div className="hidden md:block">
+    <WalletConnect />
+  </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-4">
