@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-2 sm:px-2 lg:px-1">
+      <div className="max-w-7xl mx-auto px-1 sm:px-1 lg:px-1">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
@@ -34,12 +34,12 @@ const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-2 py-4 rounded-md text-sm font-medium transition-all duration-200 ${
+                className={`px-1 py-4 rounded-md text-sm font-medium transition-all duration-200 ${
                   isActive(link.path)
                     ? 'text-blue-600 bg-blue-50'
                     : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
             <WalletConnect />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+              className="p-1 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
