@@ -13,6 +13,7 @@ contract JobEscrow is ERC721URIStorage {
 
     uint256 public amount;
     JobStatus public status;
+    uint256 public acceptedAt;
 
     string public metadataURI;
     string public dropboxFinalSubmission;
@@ -24,6 +25,8 @@ contract JobEscrow is ERC721URIStorage {
     address public fundsReleasedTo;
 
     bool public clientVerificationRequested;
+    bool public clientAgreedToCancel;
+    bool public freelancerAgreedToCancel;
 
     uint256 public clientTokenId;
     uint256 public freelancerTokenId;
@@ -92,6 +95,7 @@ contract JobEscrow is ERC721URIStorage {
 
         status = JobStatus.Accepted;
         freelancerTokenId = 1;
+        acceptedAt = block.timestamp; 
         _mint(freelancer, freelancerTokenId);
         _setTokenURI(freelancerTokenId, metadataURI);
 
@@ -130,24 +134,41 @@ contract JobEscrow is ERC721URIStorage {
         emit FundsReleased(freelancer, amount);
     }
 
-    function cancelJob() external onlyClient {
-        require(status == JobStatus.Created|| status != JobStatus.Accepted, "Cannot cancel either not created or already accepted, please negotiate with freelancer");
-        status = JobStatus.Cancelled;
-        emit JobCancelled(msg.sender, block.timestamp);
+  
+
+
+    function cancelBeforeFreelancerAccepted() external onlyClient {
+    require(status != JobStatus.Accepted, "Cannot cancel after freelancer has accepted");
+    require(fundsReleasedTo == address(0), "Funds already released");
+
+    status = JobStatus.Cancelled;
+    fundsReleasedTo = client;
+
+    uint256 refund = address(this).balance;
+    if (refund > 0) {
+        payable(client).transfer(refund);
+        emit EscrowFundsReturned(client, refund);
     }
 
-    function refundToClient() external onlyClient {
-        require(status == JobStatus.Funded || status == JobStatus.Accepted, "Not refundable");
-        require(fundsReleasedTo == address(0), "Already paid out");
+    emit JobCancelled(msg.sender, block.timestamp);
+}
+function cancelByGhosting() external onlyClient {
+    require(status == JobStatus.Accepted, "Must be accepted");
+    require(!clientVerificationRequested, "Client verification already requested");
+    require(block.timestamp >= acceptedAt + 180 days, "Too early to cancel by ghosting");
+    require(fundsReleasedTo == address(0), "Already paid");
 
-        status = JobStatus.EscrowFundsReturned;
-        fundsReleasedTo = client;
+    status = JobStatus.Cancelled;
+    fundsReleasedTo = client;
 
-        uint256 refundAmount = address(this).balance;
-        payable(client).transfer(refundAmount);
-
-        emit EscrowFundsReturned(client, refundAmount);
+    uint256 refund = address(this).balance;
+    if (refund > 0) {
+        payable(client).transfer(refund);
+        emit EscrowFundsReturned(client, refund);
     }
+
+    emit JobCancelled(msg.sender, block.timestamp);
+}
 
     function getContractBalance() external view returns (uint256) {
         return address(this).balance;

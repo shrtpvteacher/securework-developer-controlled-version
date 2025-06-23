@@ -1,6 +1,7 @@
+// src/helpers/uploadToIPFS.js
 import axios from 'axios';
 
-export async function uploadToIPFS(data: object) {
+export async function uploadToIPFS(data) {
   const JWT = process.env.REACT_APP_PINATA_JWT;
   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
 

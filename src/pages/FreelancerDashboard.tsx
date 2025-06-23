@@ -58,7 +58,7 @@ const FreelancerDashboard: React.FC = () => {
     // Apply price filter
     if (priceFilter !== 'all') {
       jobsToShow = jobsToShow.filter(job => {
-        const price = parseFloat(job.price);
+        const price = parseFloat(job.jobPay);
         switch (priceFilter) {
           case 'low':
             return price < 1;
@@ -96,7 +96,7 @@ const FreelancerDashboard: React.FC = () => {
     },
     {
       label: 'Earned',
-      value: `${completedJobs.reduce((sum, job) => sum + parseFloat(job.price), 0).toFixed(2)} ETH`,
+      value: `${completedJobs.reduce((sum, job) => sum + parseFloat(job.jobPay), 0).toFixed(2)} ETH`,
       icon: Star,
       color: 'purple'
     }

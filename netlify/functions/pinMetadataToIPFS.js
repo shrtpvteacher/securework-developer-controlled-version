@@ -6,9 +6,9 @@ exports.handler = async function (event) {
 
   try {
     const body = JSON.parse(event.body);
-    const { title, description, requirements, deliverables, creatorAddress, freelancerAddress, amount } = body;
+    const { title, description, requirements, deliverables, creatorAddress, freelancerAddress, jobPay } = body;
 
-    if (!title || !description || !Array.isArray(requirements, deliverables) || !creatorAddress || !amount) {
+    if (!title || !description || !Array.isArray(requirements, deliverables) || !creatorAddress || !jobPay) {
       return {
         statusCode: 400,
         body: JSON.stringify({ error: "Missing required metadata fields." })
@@ -22,7 +22,7 @@ exports.handler = async function (event) {
       deliverables,
       creatorAddress,
       freelancerAddress: freelancerAddress || '',
-      amount,
+      jobPay,
       createdAt: new Date().toISOString()
     };
 

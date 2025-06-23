@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Plus, Briefcase, Clock, CheckCircle, AlertCircle, Eye } from 'lucide-react';
+import { Plus, File, Clock, CheckCircle, Receipt, Eye } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 import { useJobs } from '../context/JobContext';
-import CreateJobModal from '../components/archived/CreateJobModal';
+import CreateJobPage from './CreateJobPage';
 import JobCard from '../components/JobCard';
 
 const ClientDashboard: React.FC = () => {
   const { account, isConnected } = useWallet();
   const { getJobsByRole } = useJobs();
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showCreateJob, setShowCreateJob] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'active' | 'completed'>('all');
 
   if (!isConnected) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <Briefcase className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+          <File className="h-16 w-16 text-gray-400 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Your Wallet</h2>
           <p className="text-gray-600">Please connect your wallet to access the client dashboard.</p>
         </div>
@@ -42,14 +42,14 @@ const ClientDashboard: React.FC = () => {
     {
       label: 'Total Jobs',
       value: allJobs.length,
-      icon: Briefcase,
+      icon: File,
       color: 'blue'
     },
     {
       label: 'Active Jobs',
       value: activeJobs.length,
       icon: Clock,
-      color: 'orange'
+      color: 'blue'
     },
     {
       label: 'Completed',
@@ -59,9 +59,9 @@ const ClientDashboard: React.FC = () => {
     },
     {
       label: 'Total Spent',
-      value: `${allJobs.reduce((sum, job) => sum + parseFloat(job.price), 0).toFixed(2)} ETH`,
-      icon: AlertCircle,
-      color: 'purple'
+      value: `${allJobs.reduce((sum, job) => sum + parseFloat(job.jobPay), 0).toFixed(2)} ETH`,
+      icon: Receipt,
+      color: 'green'
     }
   ];
 
@@ -75,7 +75,7 @@ const ClientDashboard: React.FC = () => {
             <p className="text-gray-600">Manage your jobs and track progress</p>
           </div>
           <button
-            onClick={() => setShowCreateModal(true)}
+            onClick={() => setShowCreateJob(true)}
             className="mt-4 md:mt-0 bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
           >
             <Plus className="h-5 w-5" />
@@ -140,10 +140,10 @@ const ClientDashboard: React.FC = () => {
             </p>
             {activeTab === 'all' && (
               <button
-                onClick={() => setShowCreateModal(true)}
+                onClick={() => setShowCreateJob(true)}
                 className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
               >
-                Create Your First Job
+                Create A New Job Post
               </button>
             )}
           </div>
@@ -151,8 +151,8 @@ const ClientDashboard: React.FC = () => {
       </div>
 
       {/* Create Job Modal */}
-      {showCreateModal && (
-        <CreateJobModal onClose={() => setShowCreateModal(false)} />
+      {showCreateJob && (
+        <CreateJobPage onClose={() => setShowCreateJob(false)} />
       )}
     </div>
   );

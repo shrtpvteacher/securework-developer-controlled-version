@@ -6,7 +6,10 @@ import { deployJobContract } from '../logic/deployJobContract.js';
 import { fetchContractCreationFee } from '../logic/fetchContractCreationFee.js';
 import { useAccount } from 'wagmi';
 
-const CreateJobPage: React.FC = () => {
+interface CreateJobPageProps {
+  onClose: () => void;
+}
+const CreateJobPage: React.FC<CreateJobPageProps> = ({ onClose }) => {
   const navigate = useNavigate();
   const { address: account } = useAccount();
 

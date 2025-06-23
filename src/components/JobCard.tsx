@@ -9,24 +9,7 @@ interface JobCardProps {
 }
 
 const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
-  /*const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'created':
-        return 'bg-gray-100 text-gray-800';
-      case 'funded':
-        return 'bg-blue-100 text-blue-800';
-      case 'accepted':
-        return 'bg-green-100 text-green-800';
-      case 'reviewing':
-        return 'bg-orange-100 text-orange-800';
-        case 'submitted':   
-        return 'bg-yellow-100 text-yellow-800';
-      case 'completed':
-        return 'bg-emerald-100 text-emerald-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  }; */
+
 
   const formatStatus = (status: string) => {
     return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
