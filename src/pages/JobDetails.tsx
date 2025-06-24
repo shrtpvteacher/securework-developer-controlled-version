@@ -46,7 +46,7 @@ const JobDetails: React.FC = () => {
   };
 
   const handleSubmitForReview = () => {
-    updateJob(job.id, { status: 'in_progress' });
+    updateJob(job.id, { status: 'submitted' });
   };
 
   return (
@@ -66,12 +66,12 @@ const JobDetails: React.FC = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
               <div>
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">{job.title}</h1>
-                <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(job.status)}`}>
+                <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${(job.status)}`}>
                   {formatStatus(job.status)}
                 </span>
               </div>
               <div className="mt-4 md:mt-0 text-right">
-                <div className="text-3xl font-bold text-emerald-600">{job.price} ETH</div>
+                <div className="text-3xl font-bold text-emerald-600">{job.jobPay} ETH</div>
                 <div className="text-sm text-gray-500">Project Value</div>
               </div>
             </div>
