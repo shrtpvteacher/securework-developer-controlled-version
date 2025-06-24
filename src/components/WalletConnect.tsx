@@ -28,7 +28,7 @@ const WalletConnect: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-4 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105">
       <div className="bg-gray-50 px-3 py-2 rounded-lg border">
         <div className="flex items-center space-x-2">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -40,7 +40,7 @@ const WalletConnect: React.FC = () => {
             className="p-1 hover:bg-gray-200 rounded transition-colors"
             title="Copy address"
           >
-            <Copy className="h-3 w-3 text-gray-500" />
+            <Copy className="h-3 w-3 text-white" />
           </button>
         </div>
         <div className="text-xs text-gray-500 mt-1">
