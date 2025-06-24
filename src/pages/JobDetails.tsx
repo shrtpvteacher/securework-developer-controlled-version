@@ -31,27 +31,7 @@ const JobDetails: React.FC = () => {
   const isClient = account?.toLowerCase() === job.clientAddress.toLowerCase();
   const isFreelancer = account?.toLowerCase() === job.freelancerAddress.toLowerCase();
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'created':
-        return 'bg-gray-100 text-gray-800';
-      case 'funded':
-        return 'bg-blue-100 text-blue-800';
-      case 'accepted':
-        return 'bg-green-100 text-green-800';
-    
-      case 'submitted':
-        return 'bg-purple-100 text-purple-800';
-      case 'reviewing':
-        return 'bg-orange-100 text-orange-800';
-      case 'completed':
-        return 'bg-emerald-100 text-emerald-800';
-      case 'cancelled':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
+
 
   const formatStatus = (status: string) => {
     return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());

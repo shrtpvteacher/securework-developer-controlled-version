@@ -21,11 +21,11 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-1 sm:px-1 lg:px-1">
+      <div className="max-w-7xl mx-auto px-2 sm:px-2 lg:px-2">
        <div className="flex justify-between items-center h-16">
   {/* Left: Logo + Nav Links */}
   <div className="flex items-center space-x-6">
-    <Link to="/" className="flex items-center space-x-2 group">
+    <Link to="/" className="flex items-center space-x-4 group">
       <div className="p-2 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-lg group-hover:shadow-lg transition-all duration-300">
         <Shield className="h-6 w-6 text-white" />
       </div>
