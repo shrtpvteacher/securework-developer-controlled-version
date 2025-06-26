@@ -1,4 +1,4 @@
-exports.handler = async (event, context) => {
+/* exports.handler = async (event, context) => {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return {
@@ -118,7 +118,7 @@ Be thorough but fair in your evaluation. The work should pass if it meets the ba
         "function verifyByAI(string memory dropboxLink) external"
       ];
       
-      const jobContract = new ethers.Contract(contractAddress, jobEscrowABI, aiVerifierWallet);
+      const jobContract = new ethers.Contract(contractAddress, jobEscrowABI, aiVerifier);
       
       try {
         const tx = await jobContract.verifyByAI(dropboxLink);
@@ -160,4 +160,110 @@ Be thorough but fair in your evaluation. The work should pass if it meets the ba
       })
     };
   }
+};
+
+*/
+
+
+const Busboy = require('busboy');
+const AdmZip = require('adm-zip');
+const { Readable } = require('stream');
+// Adjust this import based on your project structure
+const { reviewWorkSubmission } = require('../../src/utils/reviewWorkSubmission');
+
+exports.handler = async (event, context) => {
+  // Handle only POST
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: JSON.stringify({ error: 'Method not allowed' })
+    };
+  }
+
+  // Handle CORS preflight
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: ''
+    };
+  }
+
+  return new Promise((resolve) => {
+    const busboy = new Busboy({ headers: event.headers });
+    let jobMetadata, workDescription = '';
+    const fileContents = [];
+    let zipFound = false;
+
+    busboy.on('field', (name, value) => {
+      if (name === 'jobMetadata') jobMetadata = JSON.parse(value);
+      if (name === 'workDescription') workDescription = value;
+    });
+
+    busboy.on('file', (fieldname, file, filename) => {
+      let buffers = [];
+      file.on('data', (data) => buffers.push(data));
+      file.on('end', () => {
+        if (!filename.toLowerCase().endsWith('.zip')) {
+          return resolve({
+            statusCode: 400,
+            headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ error: 'Only .zip files are accepted.' })
+          });
+        }
+        zipFound = true;
+        const fileBuffer = Buffer.concat(buffers);
+        const zip = new AdmZip(fileBuffer);
+        zip.getEntries().forEach(entry => {
+          if (
+            entry.entryName.match(/\.(js|ts|sol|py|md|txt|json|html|css)$/i) &&
+            !entry.isDirectory
+          ) {
+            fileContents.push(
+              `// File: ${entry.entryName}\n${entry.getData().toString('utf8')}`
+            );
+          }
+        });
+      });
+    });
+
+    busboy.on('finish', async () => {
+      try {
+        if (!jobMetadata) throw new Error('Missing job metadata');
+        if (!zipFound) throw new Error('No zip file found in submission');
+
+        const result = await reviewWorkSubmission(
+          jobMetadata,
+          workDescription,
+          fileContents
+        );
+        resolve({
+          statusCode: 200,
+          headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+          body: JSON.stringify(result),
+        });
+      } catch (err) {
+        resolve({
+          statusCode: 500,
+          headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ error: err.message }),
+        });
+      }
+    });
+
+    // Support both base64 (binary) and utf8 bodies from Netlify
+    const stream = Readable.from(
+      Buffer.from(event.body, event.isBase64Encoded ? 'base64' : 'utf8')
+    );
+    stream.pipe(busboy);
+  });
 };

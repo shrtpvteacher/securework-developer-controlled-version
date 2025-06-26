@@ -25,8 +25,6 @@ contract JobEscrow is ERC721URIStorage {
     address public fundsReleasedTo;
 
     bool public clientVerificationRequested;
-    bool public clientAgreedToCancel;
-    bool public freelancerAgreedToCancel;
 
     uint256 public clientTokenId;
     uint256 public freelancerTokenId;

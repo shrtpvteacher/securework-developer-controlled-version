@@ -405,6 +405,19 @@
     },
     {
       "inputs": [],
+      "name": "acceptedAt",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "aiVerifier",
       "outputs": [
         {
@@ -481,7 +494,14 @@
     },
     {
       "inputs": [],
-      "name": "cancelJob",
+      "name": "cancelBeforeFreelancerAccepted",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "cancelByGhosting",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -795,13 +815,6 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "refundToClient",
-      "outputs": [],
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {

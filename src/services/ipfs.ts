@@ -2,14 +2,16 @@ import axios from 'axios';
 
 const pinataJWT = process.env.PINATA_JWT;
 
-export async function handler(event) {
+export async function handler(event: any): Promise<any> {
   try {
     if (!pinataJWT) {
       return {
         statusCode: 401,
         body: JSON.stringify({ error: "Missing Pinata JWT." }),
       };
+      }
     }
+}
 
 export interface JobMetadata {
   title: string;
@@ -25,7 +27,7 @@ export interface JobMetadata {
 
 export const uploadJobMetadata = async (metadata: JobMetadata): Promise<string> => {
   try {
-    if (!config.pinataJWT) {
+    if (!pinataJWT) {
       throw new Error('Pinata JWT not configured');
     }
 
@@ -39,7 +41,7 @@ export const uploadJobMetadata = async (metadata: JobMetadata): Promise<string> 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.pinataJWT}`
+        'Authorization': `Bearer ${pinataJWT}`
       },
       body: JSON.stringify({
         pinataContent: metadataWithTimestamp,
@@ -94,7 +96,7 @@ export const getJobMetadata = async (metadataURI: string): Promise<JobMetadata> 
 
 export const uploadWorkFiles = async (files: File[]): Promise<string> => {
   try {
-    if (!config.pinataJWT) {
+    if (!pinataJWT) {
       throw new Error('Pinata JWT not configured');
     }
 
@@ -119,7 +121,7 @@ export const uploadWorkFiles = async (files: File[]): Promise<string> => {
     const response = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${config.pinataJWT}`
+        'Authorization': `Bearer ${pinataJWT}`
       },
       body: fileData
     });
@@ -145,4 +147,4 @@ export const getIPFSGatewayUrl = (ipfsUri: string): string => {
     : ipfsUri;
   
   return `https://gateway.pinata.cloud/ipfs/${hash}`;
-}; 
+};

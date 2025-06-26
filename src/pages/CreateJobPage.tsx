@@ -175,7 +175,7 @@ const CreateJobPage: React.FC = () => {
 
 export default CreateJobPage;   */
 
-
+/*
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { uploadMetadataToIPFS } from '../logic/ipfsUploader';
@@ -311,6 +311,80 @@ const CreateJobPage: React.FC = () => {
           </button>
         </div>
       </div>
+    </div>
+  );
+};
+
+export default CreateJobPage;  */
+
+
+
+
+// File: src/pages/CreateJobPage.tsx
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAccount } from 'wagmi';
+import { fetchContractCreationFee } from '../logic/fetchContractCreationFee';
+import MetadataSetUpStep from '../components/MetadataSetUpStep';
+
+const CreateJobPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { address: account } = useAccount();
+
+  const [factoryFee, setFactoryFee] = useState<string>('…');
+  const [clientEmail, setClientEmail] = useState<string>('');
+
+  /* fetch fee once on mount */
+  useEffect(() => {
+    fetchContractCreationFee().then(setFactoryFee);
+  }, []);
+
+  /* called once metadata has been uploaded */
+  const handleContinue = ({
+    metadataURI,
+    metadata,
+  }: {
+    metadataURI: string;
+    metadata: any;
+  }) => {
+    navigate('/create-job/preview', {
+      state: {
+        metadataURI,
+        metadata,
+        clientEmail, // used later by storeEmail
+      },
+    });
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto mt-12 p-6 bg-white shadow-xl rounded-xl space-y-8">
+      {/* Email card */}
+      <div className="bg-gray-100 p-4 rounded-md">
+        <label className="block font-semibold mb-1">Notification Email</label>
+        <input
+          type="email"
+          placeholder="Enter your email address"
+          className="w-full border border-gray-300 p-2 rounded-md"
+          value={clientEmail}
+          onChange={(e) => setClientEmail(e.target.value)}
+        />
+        <p className="text-sm text-gray-600 mt-1 italic">
+          Your email remains private and is <strong>not</strong> stored on-chain or on IPFS.
+        </p>
+      </div>
+
+      {/* factory fee */}
+      <p className="text-center text-gray-700">
+        Factory creation fee:&nbsp;
+        <span className="font-semibold">{factoryFee} ETH</span>
+      </p>
+
+      {/* metadata form */}
+      <MetadataSetUpStep
+        clientAddress={account || ''}
+        contractCreationFee={factoryFee}
+        onContinue={handleContinue}
+      />
     </div>
   );
 };

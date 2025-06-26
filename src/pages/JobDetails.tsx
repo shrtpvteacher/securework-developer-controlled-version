@@ -4,6 +4,8 @@ import { ArrowLeft, Calendar, DollarSign, User, FileText, Brain, Upload, Downloa
 import { useJobs } from '../context/JobContext';
 import { useWallet } from '../context/WalletContext';
 import WorkSubmissionModal from '../components/WorkSubmissionModal';
+import SubmitForReview from '../components/SubmitForReview';
+import UploadToDropbox from '../components/UploadToDropbox';
 
 const JobDetails: React.FC = () => {
   const { jobId } = useParams<{ jobId: string }>();
@@ -108,8 +110,20 @@ const JobDetails: React.FC = () => {
             </div>
           </div>
         </div>
+  
 
         {/* Action Cards */}
+                <div className="space-y-6">
+          {isClient && job.status === 'created' && (
+            <FundEscrow
+              contractAddress={job.contractAddress}
+              jobPay={job.jobPay}
+               <button
+                    onClick={handleAcceptJob}
+                    className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
+                  ></button>onSuccess={refetchOnChain}
+            />
+          )}
         <div className="space-y-6">
           {/* Freelancer Actions */}
           {isFreelancer && (
@@ -146,6 +160,21 @@ const JobDetails: React.FC = () => {
               )}
             </>
           )}
+          {role === 'freelancer' && job.status === 'accepted' && (
+            <SubmitForReview
+            metadataURI={job.metadataURI}
+            onSuccess={fetchJob}      // backend will set status → 'reviewed_passed'
+  />
+)}
+
+
+
+{role === 'freelancer' && job.status === 'reviewed_passed' && (
+  <UploadToDropbox
+    jobId={job.jobId}
+    onSuccess={fetchJob}      // status flips to 'submitted'
+  />
+)}
 
           {/* AI Review Results */}
           {job.aiReviewResult && (
@@ -224,5 +253,217 @@ const JobDetails: React.FC = () => {
     </div>
   );
 };
+
+export default JobDetails;
+
+
+
+
+
+
+
+
+*/
+
+
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import {
+  ArrowLeft, Calendar, User, FileText, Brain, Upload,
+  Download, CheckCircle, XCircle
+} from 'lucide-react';
+
+import { useJobs }    from '../context/JobContext';
+import { useWallet }  from '../context/WalletContext';
+
+import FundEscrow          from '../components/FundEscrow';
+import AcceptJob           from '../components/AcceptJob';
+import WorkSubmissionModal from '../components/WorkSubmissionModal';
+import UploadToDropbox     from '../components/UploadToDropbox';
+
+const JobDetails: React.FC = () => {
+  const { jobId } = useParams<{ jobId: string }>();
+  const { getJobById, fetchJobFromChain } = useJobs();
+  const { account } = useWallet();
+
+  const [showModal, setShowModal] = useState(false);
+  const [job, setJob] = useState<any | null>(null);
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      const jobData = await fetchJobFromChain(jobId!);
+      setJob(jobData);
+    };
+    fetchJob();
+  }, [jobId, fetchJobFromChain]);
+
+  if (!job) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-2">Job Not Found</h2>
+          <Link to="/client-dashboard" className="text-blue-600">← Back</Link>
+        </div>
+      </div>
+    );
+  }
+
+  const isClient     = account?.toLowerCase() === job.clientAddress.toLowerCase();
+  const isFreelancer = account?.toLowerCase() === job.freelancerAddress.toLowerCase();
+
+  const refetchOnChain = async () => {
+    const jobData = await fetchJobFromChain(jobId!);
+    setJob(jobData);
+  };
+
+  const format = (s: string) => s.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const short  = (addr: string) => `${addr.slice(0, 6)}…${addr.slice(-4)}`;
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <Link
+          to={isClient ? '/client-dashboard' : '/freelancer-dashboard'}
+          className="inline-flex items-center text-blue-600 mb-6"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" /> Back to Dashboard
+        </Link>
+
+        <div className="bg-white rounded-xl shadow-sm border p-8 mb-10">
+          <div className="flex flex-col md:flex-row justify-between">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">{job.title}</h1>
+              <span className="inline-block bg-gray-100 px-3 py-1 rounded-full text-sm">
+                {format(job.status)}
+              </span>
+            </div>
+            <div className="mt-4 md:mt-0 text-right">
+              <div className="text-3xl font-bold text-emerald-600">{job.jobPay} ETH</div>
+              <div className="text-sm text-gray-500">Project Value</div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mt-6">
+            <InfoRow icon={<Calendar className="h-5 w-5 text-gray-400" />} label="Created"
+                     value={job.createdAt.toLocaleDateString()} />
+            <InfoRow icon={<User className="h-5 w-5 text-gray-400" />} label="Client"
+                     value={short(job.clientAddress)} />
+            <InfoRow icon={<User className="h-5 w-5 text-gray-400" />} label="Freelancer"
+                     value={short(job.freelancerAddress)} />
+          </div>
+
+          <div className="border-t pt-6 mt-6">
+            <h3 className="font-semibold mb-2">Description</h3>
+            <p className="text-gray-700">{job.description}</p>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          {isClient && job.status === 'created' && (
+            <FundEscrow
+              contractAddress={job.contractAddress}
+              jobPay={job.jobPay}
+              onSuccess={refetchOnChain}
+            />
+          )}
+
+          {isFreelancer && job.status === 'funded' && (
+            <AcceptJob
+              contractAddress={job.contractAddress}
+              onSuccess={refetchOnChain}
+            />
+          )}
+
+          {isFreelancer && job.status === 'accepted' && (
+            <ButtonCard
+              title="Submit Work"
+              text="Upload your completed work for AI verification."
+              onClick={() => setShowModal(true)}
+            />
+          )}
+
+          {isFreelancer && job.status === 'reviewed_passed' && (
+            <UploadToDropbox
+              jobId={job.jobId}
+              onSuccess={refetchOnChain}
+            />
+          )}
+
+          {job.aiReviewResult && (
+            <AIResultCard result={job.aiReviewResult} />
+          )}
+
+          {job.workSubmissionHash && (
+            <FileHashCard hash={job.workSubmissionHash} />
+          )}
+        </div>
+      </div>
+
+      {showModal && (
+        <WorkSubmissionModal
+          job={job}
+          onClose={() => setShowModal(false)}
+          onSuccess={refetchOnChain}
+        />
+      )}
+    </div>
+  );
+};
+
+const InfoRow = ({ icon, label, value }: any) => (
+  <div className="flex items-center space-x-3">
+    {icon}
+    <div>
+      <div className="text-sm text-gray-500">{label}</div>
+      <div className="font-medium">{value}</div>
+    </div>
+  </div>
+);
+
+const ButtonCard = ({ title, text, onClick }: any) => (
+  <div className="bg-white rounded-xl shadow-sm border p-6">
+    <h3 className="text-lg font-semibold mb-2">{title}</h3>
+    <p className="text-gray-600 mb-4">{text}</p>
+    <button
+      onClick={onClick}
+      className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-2 rounded shadow hover:opacity-90"
+    >
+      {title}
+    </button>
+  </div>
+);
+
+const AIResultCard = ({ result }: any) => (
+  <div className="bg-white rounded-xl shadow-sm border p-6">
+    <div className="flex items-center gap-2 mb-3">
+      <Brain className="h-6 w-6 text-purple-600" />
+      <h3 className="text-lg font-semibold">AI Review Results</h3>
+    </div>
+    <div className={`p-4 rounded ${result.passed ? 'bg-green-50' : 'bg-red-50'}`}>
+      {result.passed
+        ? <CheckCircle className="h-5 w-5 text-green-600" />
+        : <XCircle className="h-5 w-5 text-red-600" />}
+      <span className={`ml-2 font-semibold ${result.passed ? 'text-green-800' : 'text-red-800'}`}>
+        {result.passed ? 'Approved' : 'Needs Revision'}
+      </span>
+      <p className="mt-2 text-sm">{result.feedback}</p>
+      <p className="text-xs mt-1">Score: {result.score}/100</p>
+    </div>
+  </div>
+);
+
+const FileHashCard = ({ hash }: { hash: string }) => (
+  <div className="bg-white rounded-xl shadow-sm border p-6">
+    <h3 className="font-semibold mb-2">Work Submission</h3>
+    <div className="flex justify-between items-center bg-gray-50 p-3 rounded">
+      <span className="text-sm font-mono">{hash}</span>
+      <a href={`https://ipfs.io/ipfs/${hash}`} target="_blank" rel="noopener noreferrer"
+         className="text-blue-600 flex items-center gap-1">
+        <Download className="h-4 w-4" /> Download
+      </a>
+    </div>
+  </div>
+);
 
 export default JobDetails;

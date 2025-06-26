@@ -1,8 +1,8 @@
 {
   "network": "sepolia",
-  "factoryAddress": "0xBf021520e581484D06FDE948C8aa2FF7F64D4356",
+  "factoryAddress": "0xcf8F34C1Fd6554546B7eb53e4C1E19D1E6609E2E",
   "feeCollectorAddress": "0x1CDdC78ef70DbbA6f2b2E6Af2d68003290514Ee0",
   "aiVerifierAddress": "0x922D74e9fa6BaDF58797CCEe9DB9774cbd47422D",
-  "deployedAt": "2025-06-22T00:49:25.808Z",
+  "deployedAt": "2025-06-25T21:14:52.327Z",
   "deployer": "0x1CDdC78ef70DbbA6f2b2E6Af2d68003290514Ee0"
 }

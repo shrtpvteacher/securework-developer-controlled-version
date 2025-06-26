@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import JobEscrowFactoryABI from '../../netlify/functions/abis/JobEscrowFactoryABI.json';
 import { Link } from 'react-router-dom';
 
-const FACTORY_ADDRESS = import.meta.env.VITE_FACTORY_ADDRESS as string;
+const FACTORY_ADDRESS = import.meta.env.VITE_FACTORY_CONTRACT_ADDRESS as string;
 
 interface JobData {
   jobId: number;
