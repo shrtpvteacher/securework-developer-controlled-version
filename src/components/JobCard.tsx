@@ -12,6 +12,7 @@ interface JobCardProps {
 
 const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
 const [showSendDropbox, setShowSendDropbox] = useState(false);
+
 const gradientBtnClass = "bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-3 py-1 rounded-md text-sm font-medium hover:shadow-lg transition-all duration-300";
 
   const formatStatus = (status: string) => {

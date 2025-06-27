@@ -87,7 +87,7 @@ const CreateJobPage: React.FC = () => {
   const navigate = useNavigate();
   const { address: account } = useAccount();
 
-  const [factoryFee, setFactoryFee] = useState<string>('…');
+  const [creationFee, setCreationFee] = useState<string>('…');
   const [clientEmail, setClientEmail] = useState<string>('');
 
   // New state for uploaded metadata URI and metadata object
@@ -96,7 +96,7 @@ const CreateJobPage: React.FC = () => {
 
   /* fetch fee once on mount */
   useEffect(() => {
-    fetchContractCreationFee().then(setFactoryFee);
+    fetchContractCreationFee().then(setCreationFee);
   }, []);
 
   /* called once metadata has been uploaded */
@@ -138,16 +138,16 @@ const CreateJobPage: React.FC = () => {
       </div>
 
       {/* Factory fee display */}
-      <p className="text-center text-gray-700">
-        Factory creation fee:&nbsp;
-        <span className="font-semibold">{factoryFee} ETH</span>
+      <p className="text-center text-gradient-to-r from-blue-600 to-emerald-600 text-lg font-semibold">
+        Contract Creation Fee:&nbsp;
+        <span className="font-semibold">{creationFee} ETH</span>
       </p>
 
       {/* Conditional rendering: show upload step OR deploy button */}
       {!metadataURI ? (
         <MetadataSetUpStep
           clientAddress={account || ''}
-          contractCreationFee={factoryFee}
+          contractCreationFee={creationFee}
           onContinue={handleContinue}
         />
       ) : (
