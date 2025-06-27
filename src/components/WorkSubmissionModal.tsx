@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import { X, Upload, FileText, Brain, CheckCircle, XCircle, Loader } from 'lucide-react';
 import { Job, useJobs } from '../context/JobContext';
 
 interface WorkSubmissionModalProps {
-  job: Job;
+  job: Job;s
   onClose: () => void;
 }
 
@@ -71,7 +71,7 @@ const WorkSubmissionModal: React.FC<WorkSubmissionModalProps> = ({ job, onClose 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
+     
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-2xl font-bold text-gray-900">Submit Work</h2>
           <button
@@ -82,7 +82,7 @@ const WorkSubmissionModal: React.FC<WorkSubmissionModalProps> = ({ job, onClose 
           </button>
         </div>
 
-        {/* Progress Steps */}
+   
         <div className="px-6 py-4 border-b border-gray-200">
           <div className="flex items-center space-x-4">
             {[1, 2, 3].map((stepNum) => (
@@ -111,7 +111,7 @@ const WorkSubmissionModal: React.FC<WorkSubmissionModalProps> = ({ job, onClose 
           </div>
         </div>
 
-        {/* Content */}
+     
         <div className="p-6">
           {step === 1 && (
             <div className="space-y-6">
@@ -239,7 +239,7 @@ const WorkSubmissionModal: React.FC<WorkSubmissionModalProps> = ({ job, onClose 
           )}
         </div>
 
-        {/* Footer */}
+       
         <div className="flex justify-between items-center p-6 border-t border-gray-200">
           <button
             onClick={step === 1 ? onClose : () => setStep(step - 1)}
@@ -273,4 +273,4 @@ const WorkSubmissionModal: React.FC<WorkSubmissionModalProps> = ({ job, onClose 
   );
 };
 
-export default WorkSubmissionModal;
+export default WorkSubmissionModal;  */
