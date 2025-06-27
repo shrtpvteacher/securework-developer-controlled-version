@@ -7,7 +7,7 @@ interface WalletContextType {
   balance: string;
   connectWallet: () => Promise<void>;
   disconnectWallet: () => void;
-  provider: ethers.BrowserProvider | null;
+  provider: ethers.providers.Web3Provider  | null;
   signer: ethers.Signer | null;
 }
 
@@ -28,7 +28,7 @@ interface WalletProviderProps {
 export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
   const [account, setAccount] = useState<string | null>(null);
   const [balance, setBalance] = useState<string>('0');
-  const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
+  const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
   const [signer, setSigner] = useState<ethers.Signer | null>(null);
 
   const connectWallet = async () => {
@@ -38,14 +38,14 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
           method: 'eth_requestAccounts',
         });
         
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = await provider.getSigner();
-        const balance = await provider.getBalance(accounts[0]);
+      
         
         setAccount(accounts[0]);
         setProvider(provider);
         setSigner(signer);
-        setBalance(ethers.formatEther(balance));
+       
       } catch (error) {
         console.error('Error connecting wallet:', error);
       }
@@ -56,7 +56,6 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
 
   const disconnectWallet = () => {
     setAccount(null);
-    setBalance('0');
     setProvider(null);
     setSigner(null);
   };
@@ -69,14 +68,12 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
         });
         
         if (accounts.length > 0) {
-          const provider = new ethers.BrowserProvider(window.ethereum);
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
           const signer = await provider.getSigner();
-          const balance = await provider.getBalance(accounts[0]);
           
           setAccount(accounts[0]);
           setProvider(provider);
           setSigner(signer);
-          setBalance(ethers.formatEther(balance));
         }
       }
     };
