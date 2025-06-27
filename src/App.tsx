@@ -9,6 +9,7 @@ import JobDetails from './pages/JobDetails';
 import { WalletProvider } from './context/WalletContext';
 import { JobProvider } from './context/JobContext';
 import CreateJobPage from './pages/CreateJobPage';
+import Footer from './components/Footer';
 
 
 
@@ -19,6 +20,7 @@ function App() {
         <Router>
 
             <Navbar />
+           
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/create-job" element={<CreateJobPage />} />
@@ -27,6 +29,8 @@ function App() {
               <Route path="/freelancer-dashboard" element={<FreelancerDashboard />} />
               <Route path="/job/:jobId" element={<JobDetails />} />
             </Routes>
+
+            <Footer />
         
         </Router>
       </JobProvider>
