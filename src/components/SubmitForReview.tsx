@@ -1,8 +1,6 @@
 // src/components/SubmitForReview.tsx
-// src/components/SubmitForReview.tsx
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { ethers } from 'ethers';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import JobABI from '../../netlify/functions/abis/JobEscrowABI.json';
@@ -34,7 +32,9 @@ interface ReviewResult {
   promptUsed?: string;
 }
 
+
 interface SubmitForReviewProps {
+  contractAddress: string;
   onClose: () => void;
   onReviewComplete?: (result: ReviewResult) => void;
 }
@@ -44,10 +44,11 @@ interface SubmitForReviewProps {
 /* ------------------------------------------------------------------ */
 
 const SubmitForReview: React.FC<SubmitForReviewProps> = ({
+contractAddress,
   onClose,
   onReviewComplete,
 }) => {
-  const { contractAddress } = useParams<{ contractAddress: string }>();
+  
 
   const [metadata, setMetadata] = useState<JobMetadata | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

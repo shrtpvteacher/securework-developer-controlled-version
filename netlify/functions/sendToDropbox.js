@@ -63,7 +63,7 @@ exports.handler = async (event) => {
       };
     }
 
-    // 🔍 Lookup client email (creatorEmail) from stored blob
+    // Lookup client email (creatorEmail) from stored blob
     const blobKey = jobAddress.toLowerCase();
     const stored = await blobs.get('securework-user-emails', blobKey, { type: 'json' });
 
@@ -77,7 +77,7 @@ exports.handler = async (event) => {
 
     const clientEmail = stored.creatorEmail;
 
-    // 📤 Upload to Dropbox
+    // Upload to Dropbox
     const dropboxPath = `/SecureWork/${jobTitle}/${filename}`;
     const uploadRes = await fetch('https://content.dropboxapi.com/2/files/upload', {
       method: 'POST',
@@ -98,9 +98,53 @@ exports.handler = async (event) => {
       throw new Error(`Dropbox upload failed: ${errText}`);
     }
 
-    // 📨 Simulate email notification to client
-    console.log(`✅ ZIP uploaded to Dropbox: ${dropboxPath}`);
-    console.log(`📧 Email would be sent to: ${clientEmail}`);
+    // Share file with client email (add as member, notify them)
+    const addMemberRes = await fetch('https://api.dropboxapi.com/2/sharing/add_file_member', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.DROPBOX_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        file: dropboxPath,
+        members: [{ '.tag': 'email', email: clientEmail }],
+        access_level: { '.tag': 'viewer' },
+        add_message_as_comment: false,
+        quiet: false // false to send notification email
+      })
+    });
+
+    if (!addMemberRes.ok) {
+      const errText = await addMemberRes.text();
+      throw new Error(`Dropbox share failed: ${errText}`);
+    }
+
+    // Create a shared link for the file
+    const sharedLinkRes = await fetch('https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.DROPBOX_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        path: dropboxPath,
+        settings: {
+          requested_visibility: 'public'
+        }
+      })
+    });
+
+    if (!sharedLinkRes.ok) {
+      const errText = await sharedLinkRes.text();
+      throw new Error(`Dropbox create shared link failed: ${errText}`);
+    }
+
+    const sharedLinkData = await sharedLinkRes.json();
+    const sharedLinkUrl = sharedLinkData.url.replace('?dl=0', '?dl=1'); // direct download link
+
+    console.log(`✅ ZIP uploaded and shared: ${dropboxPath}`);
+    console.log(`📧 Shared link: ${sharedLinkUrl}`);
+    console.log(`📧 Email sent to: ${clientEmail} via Dropbox notification`);
 
     return {
       statusCode: 200,
@@ -113,7 +157,8 @@ exports.handler = async (event) => {
         jobAddress,
         jobTitle,
         file: filename,
-        emailSentTo: clientEmail
+        clientEmail,
+        sharedLinkUrl
       })
     };
   } catch (err) {

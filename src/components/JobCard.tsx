@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, User, ArrowRight, Clock, CheckCircle } from 'lucide-react';
 import { Job } from '../context/JobContext';
+import SendToDropbox from '../components/SendToDropbox';
+
 
 interface JobCardProps {
   job: Job;
@@ -9,7 +11,8 @@ interface JobCardProps {
 }
 
 const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
-
+const [showSendDropbox, setShowSendDropbox] = useState(false);
+const gradientBtnClass = "bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-3 py-1 rounded-md text-sm font-medium hover:shadow-lg transition-all duration-300";
 
   const formatStatus = (status: string) => {
     return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
@@ -103,16 +106,25 @@ const JobCard: React.FC<JobCardProps> = ({ job, userRole }) => {
 
           {/* Quick Actions based on status and role */}
           {userRole === 'freelancer' && job.status === 'funded' && (
-            <button className="bg-green-600 text-white px-3 py-1 rounded-md text-sm font-medium hover:bg-green-700 transition-colors">
+           <button className={gradientBtnClass}>
               Accept
             </button>
           )}
           
           {userRole === 'freelancer' && job.status === 'accepted' && (
-            <button className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+            <button className={gradientBtnClass}>
               Submit Work
             </button>
           )}
+
+          {userRole === 'freelancer' && job.status === 'submitted' && (
+          <button
+          onClick={() => setShowSendDropbox(!showSendDropbox)}
+            className={gradientBtnClass}>
+            
+          Send to Dropbox
+            </button>
+)}
         </div>
       </div>
     </div>

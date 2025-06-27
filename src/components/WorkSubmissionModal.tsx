@@ -62,7 +62,7 @@ const WorkSubmissionModal: React.FC<WorkSubmissionModalProps> = ({ job, onClose 
       });
     } else {
       updateJob(job.id, {
-        status: 'in_progress'
+        status: ''
       });
     }
     onClose();
