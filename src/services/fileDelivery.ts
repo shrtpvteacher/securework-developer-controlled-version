@@ -12,10 +12,9 @@ export const deliverWorkFiles = async (
   jobTitle: string
 ): Promise<DeliveryResult> => {
   try {
-    if (!config.dropboxAccessToken) {
+    if (!process.env.DROPBOX_ACCESS_TOKEN) {
       throw new Error('Dropbox access token not configured');
     }
-
     // In a real implementation, this would:
     // 1. Download metadata from IPFS
     // 2. Upload zip file Dropbox
