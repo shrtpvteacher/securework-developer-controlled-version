@@ -133,7 +133,7 @@ const CreateJobPage: React.FC = () => {
           onChange={(e) => setClientEmail(e.target.value)}
         />
         <p className="text-sm text-gray-600 mt-1 italic">
-          Your email remains private and is <strong>not</strong> stored on-chain or on IPFS.
+          Your email is used to receive deliverables and is <strong>not</strong> stored on-chain or on IPFS.
         </p>
       </div>
 

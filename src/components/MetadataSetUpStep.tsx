@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { uploadMetadataToIPFS } from '../logic/ipfsUploader';
 import { Loader2 } from 'lucide-react';
+import { create } from 'domain';
 
 type Props = {
   clientAddress: string;
@@ -16,8 +17,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
     description: '',
     jobPay: '',
     requirements: [''],
-    deliverables: [''],
-    deadline: ''
+    deliverables: ['']
   });
 
   const [isUploading, setIsUploading] = useState(false);
@@ -77,12 +77,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
         value={formData.jobPay}
         onChange={(e) => setFormData({ ...formData, jobPay: e.target.value })}
       />
-      <input
-        type="date"
-        className="w-full border p-2 rounded"
-        value={formData.deadline}
-        onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-      />
+      
 
       <div>
         <h2 className="text-lg font-semibold mb-2">Requirements</h2>
@@ -126,21 +121,22 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
         </button>
       </div>
 
-      <div className="space-x-4 flex items-center">
-        <button
-          onClick={handleUpload}
-          disabled={isUploading}
-          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
-        >
-          {isUploading ? (
-            <span className="flex items-center space-x-2">
-              <Loader2 className="animate-spin h-5 w-5" />
-              <span>Uploading...</span>
-            </span>
-          ) : (
-            'Upload Metadata to IPFS'
-          )}
-        </button>
+      <div className="flex justify-center items-center">
+  <button
+    onClick={handleUpload}
+    disabled={isUploading}
+    className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
+  >
+    {isUploading ? (
+      <span className="flex items-center space-x-2">
+        <Loader2 className="animate-spin h-5 w-5" />
+        <span>Uploading...</span>
+      </span>
+    ) : (
+      'Upload Metadata to IPFS'
+    )}
+  </button>
+</div>
 
         {uploadedURI && (
           <p className="text-green-700 text-sm">
@@ -150,12 +146,11 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
             </a>
           </p>
         )}
-      </div>
-
+      
       {uploadedURI && uploadedMetadata && (
          <div className="flex justify-center">
         <button
-          onClick={() => onContinue({ metadataURI: uploadedURI, metadata: uploadedMetadata })}
+          onClick={() => onContinue({ metadataURI: uploadedURI as string, metadata: uploadedMetadata })}
           className="mt-4 bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
         >
           Preview Metadata →
