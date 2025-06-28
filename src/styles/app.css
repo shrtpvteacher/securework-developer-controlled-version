@@ -1,0 +1,19 @@
+.gradient-btn {
+  background-image: linear-gradient(to right, #2563eb, #10b981);
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+/* To apply the .gradient-btn style to all buttons in your project, use this selector: */
+button {
+    background-image: linear-gradient(to right, #6366f1, #2563eb, #10b981);
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
