@@ -153,12 +153,14 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
       </div>
 
       {uploadedURI && uploadedMetadata && (
+         <div className="flex justify-center">
         <button
           onClick={() => onContinue({ metadataURI: uploadedURI, metadata: uploadedMetadata })}
           className="mt-4 bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
         >
           Preview Metadata →
         </button>
+         </div>
       )}
     </div>
   );

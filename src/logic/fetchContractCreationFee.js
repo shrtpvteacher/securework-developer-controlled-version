@@ -18,7 +18,7 @@ export async function fetchContractCreationFee(): Promise<string> {
 import { ethers } from 'ethers';
 import factoryABI from '../../netlify/functions/abis/JobEscrowFactoryABI.json';
 
-const FACTORY_ADDRESS = import.meta.env.VITE_FACTORY_ADDRESS;
+const FACTORY_ADDRESS = import.meta.env.VITE_FACTORY_CONTRACT_ADDRESS;
 
 export async function fetchContractCreationFee() {
   if (!window.ethereum) throw new Error('MetaMask not found');
