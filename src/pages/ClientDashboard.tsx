@@ -66,13 +66,13 @@ const ClientDashboard: React.FC = () => {
   ];
 
   return (
-  <div className="min-h-screen bg-blue-200 py-8">
+  <div className="min-h-screen bg-blue-700 py-8">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-grey-200 mb-2">Client Dashboard</h1>
-          <p className="text-gray-100">Manage your jobs and track progress</p>
+
+          <h1 className="text-grey-100 mb-3">Client Dashboard</h1>
+          <p className="text-gray-200">Manage your jobs and track progress</p>
         </div>
       </div>
 
@@ -144,7 +144,7 @@ const ClientDashboard: React.FC = () => {
         </div>
       )}
     </div>
-  </div>
+
   );
 };
 
