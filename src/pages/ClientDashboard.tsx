@@ -74,7 +74,7 @@ const ClientDashboard: React.FC = () => {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Client Dashboard</h1>
             <p className="text-gray-600">Manage your jobs and track progress</p>
           </div>
-          
+
           <button
             onClick={() => setShowCreateJob(true)}
             className="mt-4 md:mt-0 bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
@@ -148,15 +148,11 @@ const ClientDashboard: React.FC = () => {
               </button> 
             )}*/ }
           </div>
-        )}
-      </div>
+            )}
+          </div>
+        </div>
+  )}
+    
 
-      {/* Create Job Modal */}
-      {showCreateJob && (
-        <CreateJobPage onClose={() => setShowCreateJob(false)} />
-      )}
-    </div>
-  );
-};
 
 export default ClientDashboard;
