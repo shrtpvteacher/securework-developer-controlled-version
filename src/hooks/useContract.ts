@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+import { parseEther, formatEther } from 'ethers/lib/utils';
 import { useWallet } from '../context/WalletContext';
-import deployments from '../contracts/deployments.json';
+import deployments from '../deployments/jobEscrowFactoryDeployment.sepolia.json';
 
 // Updated Contract ABIs to match your new structure
 const FACTORY_ABI = [
@@ -63,7 +64,7 @@ export const useContract = () => {
     try {
       const contractWithSigner = factoryContract.connect(signer);
       const creationFee = await contractWithSigner.getContractCreationFee();
-      const amount = ethers.parseEther(jobAmount);
+      const amount = parseEther(jobAmount);
       
       const tx = await contractWithSigner.createJobEscrow(
         jobId,
@@ -108,7 +109,7 @@ export const useContract = () => {
     try {
       const jobContract = getJobContract(jobContractAddress).connect(signer);
       const tx = await jobContract.fundEscrow(freelancerAddress, {
-        value: ethers.parseEther(amount)
+        value: parseEther(amount)
       });
       await tx.wait();
       return tx.hash;
@@ -136,7 +137,7 @@ export const useContract = () => {
         jobContract: jobInfo.jobContract,
         client: jobInfo.client,
         freelancer: jobInfo.freelancer,
-        amount: ethers.formatEther(jobInfo.amount),
+        amount: formatEtherWrapper(jobInfo.amount),
         metadataURI: jobInfo.metadataURI,
         isActive: jobInfo.isActive,
         createdAt: new Date(Number(jobInfo.createdAt) * 1000)
@@ -157,7 +158,7 @@ export const useContract = () => {
       return {
         client: details.client,
         freelancer: details.freelancer,
-        amount: ethers.formatEther(details.amount),
+        amount: formatEtherWrapper(details.amount),
         status: details.status,
         metadataURI: details.metadataURI,
         dropboxFinalSubmission: details.dropboxFinalSubmission,
@@ -234,7 +235,7 @@ export const useContract = () => {
     
     try {
       const fee = await factoryContract.getContractCreationFee();
-      return ethers.formatEther(fee);
+      return formatEther(fee);
     } catch (error) {
       console.error('Error getting creation fee:', error);
       throw error;
@@ -277,3 +278,6 @@ export const useContract = () => {
     isLoading
   };
 };
+function formatEtherWrapper(amount: any) {
+    return formatEther(amount);
+}

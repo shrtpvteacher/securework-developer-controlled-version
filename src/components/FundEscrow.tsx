@@ -1,7 +1,9 @@
+//FundsEscrow.tsx
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import { Loader2 } from 'lucide-react';
 import JobEscrowABI from '../../netlify/functions/abis/JobEscrowABI.json';
+import fundEscrow from '../hooks/useContract';
 
 interface Props {
   contractAddress: string;   // JobEscrow contract address

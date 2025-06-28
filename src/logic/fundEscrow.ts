@@ -1,3 +1,4 @@
+// logic/fundEscrow.ts
 import { ethers } from 'ethers';
 import JobEscrowABI from '../../netlify/functions/abis/JobEscrowABI.json';
 

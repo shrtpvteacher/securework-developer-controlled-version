@@ -25,9 +25,9 @@ const AcceptJob: React.FC<AcceptJobProps> = ({ contractAddress, onSuccess }) => 
       if (!window.ethereum) throw new Error('Wallet provider not found');
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer   = provider.getSigner();
-      const escrow   = new ethers.Contract(contractAddress, JobEscrowABI, signer);
+      const jobEscrow   = new ethers.Contract(contractAddress, JobEscrowABI, signer);
 
-      const tx = await escrow.acceptJob();  // ← on-chain call
+      const tx = await jobEscrow.acceptJob();  // ← on-chain call
       await tx.wait();                      // wait for mining
 
       onSuccess?.();                        // let parent refetch status

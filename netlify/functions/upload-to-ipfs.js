@@ -1,6 +1,6 @@
 // netlify/functions/upload-to-ipfs.js
 
-exports.handler = async (event, context) => {
+/*exports.handler = async (event, context) => {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return {
@@ -103,3 +103,80 @@ exports.handler = async (event, context) => {
     };
   }
 };
+*/
+
+import axios from 'axios';
+
+const pinataJWT = process.env.PINATA_JWT;
+
+export async function handler(event) {
+  try {
+    if (!pinataJWT) {
+      return {
+        statusCode: 401,
+        body: JSON.stringify({ error: "Missing Pinata JWT." }),
+      };
+    }
+
+    const {
+      title,
+      description,
+      tasks,
+      creatorAddress,
+      freelancerAddress,
+      amount,
+    } = JSON.parse(event.body);
+
+    // Validate required fields
+    if (!title || !description || !Array.isArray(tasks) || !creatorAddress || !amount) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "Missing required metadata fields." }),
+      };
+    }
+
+    // Build metadata without image
+    const metadata = {
+      title,
+      description,
+      requirements,
+      deliverables,
+      creatorAddress,
+      freelancerAddress: freelancerAddress || "", // default to empty string if missing
+      jobPay,
+      createdAt: new Date().toISOString(),
+    };
+
+    const response = await axios.post(
+      "https://api.pinata.cloud/pinning/pinJSONToIPFS",
+      {
+        pinataMetadata: {
+          name: `freelance-job-${title}`,
+        },
+        pinataContent: metadata,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${pinataJWT}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const ipfsHash = response.data.IpfsHash;
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        ipfsUrl: `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
+        ipfsHash,
+      }),
+    };
+  } catch (error) {
+    console.error("IPFS upload failed:", error.message);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Failed to upload metadata to IPFS via Pinata." }),
+    };
+  }
+}
