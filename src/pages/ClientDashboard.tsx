@@ -139,14 +139,14 @@ const ClientDashboard: React.FC = () => {
                 : `No ${activeTab} jobs found.`
               }
             </p>
-             { /* {activeTab === 'all' && (
+              /* {activeTab === 'all' && (
               <button
                 onClick={() => setShowCreateJob(true)}
                 className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
               >
                 Create A New Job Post
               </button> 
-            )}*/ }
+            )}*/ 
           </div>
             )}
           </div>
