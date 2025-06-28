@@ -66,7 +66,7 @@ const ClientDashboard: React.FC = () => {
   ];
 
   return (
-  <div className="min-h-screen bg-blue-700 py-8">
+  <div className="min-h-screen bg-blue-700 px-4 py-8">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col md:flex-row items-start md:items-left mb-8">
           <p className="text-gray-200">Manage your jobs and track progress</p>
