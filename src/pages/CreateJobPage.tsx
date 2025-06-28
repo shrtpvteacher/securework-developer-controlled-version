@@ -84,7 +84,7 @@ import { fetchContractCreationFee } from '../logic/fetchContractCreationFee';
 import MetadataSetUpStep from '../components/MetadataSetUpStep';
 
 const CreateJobPage: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { address: account } = useAccount();
 
   const [creationFee, setCreationFee] = useState<string>('…');
@@ -124,7 +124,7 @@ const CreateJobPage: React.FC = () => {
 
       {/* Email input card */}
       <div className="bg-gray-100 p-4 rounded-md">
-        <label className="block font-semibold mb-1">Notification Email</label>
+        <label className="text-center block font-semibold mb-1">Enter Email Address For Deliverables Notifications</label>
         <input
           type="email"
           placeholder="Enter your email address"
@@ -138,10 +138,8 @@ const CreateJobPage: React.FC = () => {
       </div>
 
       {/* Factory fee display */}
-       <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
-                Secure Work
-              </span>
-      <p className="text-center text-gradient-to-r from-blue-600 to-emerald-600 text-lg font-semibold">
+
+      <p className="text-center bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text-lg font-bold text-transparent">
         Contract Creation Fee:&nbsp;
         <span className="font-semibold">{creationFee} ETH</span>
       </p>
