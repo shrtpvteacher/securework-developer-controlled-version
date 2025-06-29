@@ -24,7 +24,7 @@ const ClientDashboard: React.FC = () => {
             className="w-32 h-24 mb-4 drop-shadow-2xl rounded-xl"
             draggable={false}
           />
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center leading-tight bg-gradient-to-r from-blue-600 via-purple-800 to-emerald-600 bg-clip-text text-transparent mb-6">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-center leading-tight bg-gradient-to-r from-blue-600 via-purple-800 to-emerald-600 bg-clip-text text-transparent mb-6">
             Connect Your Wallet
           </h2>
           <p className="text-base text-gray-700 mb-6 text-center">
