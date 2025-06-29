@@ -15,7 +15,7 @@ const FreelancerDashboard: React.FC = () => {
  if (!isConnected) {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center">
-    
+       <div className="bg-white/90 rounded-3xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-auto backdrop-blur-lg">
         <img
           src={walletHero}
           alt="Open wallet with dollars, bitcoin and ethereum"
@@ -26,7 +26,7 @@ const FreelancerDashboard: React.FC = () => {
           Connect Your wallet
         </h2>
         <p className="text-lg text-gray-700 mb-12 text-center">
-           Unlock your dashboard, manage jobs, see earnings, and new opportunities!
+           to unlock your dashboard, manage jobs, see earnings, and new opportunities!
         </p>
         <button
           className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
@@ -35,6 +35,7 @@ const FreelancerDashboard: React.FC = () => {
         >
           Connect Wallet
         </button>
+      </div>
       </div>
     
   );
