@@ -67,7 +67,7 @@ const ClientDashboard: React.FC = () => {
 
   return (
   <div className="min-h-screen bg-gray-50 px-4 py-8">
-    <div className="w-full h-20 bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center rounded-lg shadow-lg mb-8">
+    <div className="w-full h-80 bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-100 mb-2">Freelancer Dashboard</h1>
