@@ -23,12 +23,12 @@ const FreelancerDashboard: React.FC = () => {
     );
   }
 
-  const myJobs = getJobsByRole(account!, 'freelancer');
+  const myJobs = getJobsByRole(account!, 'freelancer') || [];
   const availableJobs = jobs.filter(job => 
     job.freelancerAddress.toLowerCase() !== account!.toLowerCase() &&
     ['created', 'funded'].includes(job.status)
   );
-  const completedJobs = myJobs.filter(job => job.status === 'completed');
+  const completedJobs = myJobs.filter(job => job.status === 'verifiedBy');
 
   const getJobsToShow = () => {
     let jobsToShow = [];
@@ -38,7 +38,7 @@ const FreelancerDashboard: React.FC = () => {
         jobsToShow = availableJobs;
         break;
       case 'my-jobs':
-        jobsToShow = myJobs.filter(job => job.status !== 'completed');
+        jobsToShow = myJobs.filter(job => job.status !== 'verifiedBy');
         break;
       case 'completed':
         jobsToShow = completedJobs;
@@ -102,31 +102,38 @@ const FreelancerDashboard: React.FC = () => {
     }
   ];
 
-  return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Freelancer Dashboard</h1>
-          <p className="text-gray-600">Find work and manage your projects</p>
+ return (
+  <div className="min-h-screen bg-gray-50">
+    {/* HERO SECTION: gradient right at the top */}
+    <div className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 py-16">
+      <div className="max-w-5xl w-full mx-auto">
+        {/* Header and subtitle (left-aligned) */}
+        <div className="mb-10 px-2">
+          <h1 className="text-3xl font-bold text-gray-100 mb-2">Freelancer Dashboard</h1>
+          <p className="text-gray-200">Find work and manage your projects</p>
         </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between">
+        {/* Stats cards (centered) */}
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-4xl">
+            {stats.map((stat, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col items-center"
+              >
                 <div>
                   <p className="text-sm font-medium text-gray-600">{stat.label}</p>
                   <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
                 </div>
-                <div className={`p-3 rounded-lg bg-${stat.color}-50`}>
-                  <stat.icon className={`h-6 w-6 text-${stat.color}-600`} />
+                <div className="p-3 rounded-lg bg-gray-100 mt-2">
+                  <stat.icon className="h-6 w-6 text-gray-400" />
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+      </div>
+    </div>
+
 
         {/* Tabs */}
         <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6 w-fit">
@@ -209,7 +216,6 @@ const FreelancerDashboard: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
   );
 };
 
