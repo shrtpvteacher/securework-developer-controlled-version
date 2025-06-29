@@ -131,7 +131,7 @@ if (!isConnected) {
     <div className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 py-16">
       <div className="max-w-5xl w-full mx-auto">
         {/* Header and subtitle (left-aligned) */}
-        <div className="mb-10 px-2">
+        <div className="mb-10 px-2 text-center">
           <h1 className="text-3xl font-bold text-gray-100 mb-2">Freelancer Dashboard</h1>
           <p className="text-gray-200">Find work and manage your projects</p>
         </div>
