@@ -178,7 +178,6 @@ const ClientDashboard: React.FC = () => {
         </div>
       )}
     </div>
-  </div>
   );
 };
 
