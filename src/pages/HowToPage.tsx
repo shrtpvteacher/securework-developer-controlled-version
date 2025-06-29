@@ -10,16 +10,15 @@ const howToTopics = [
     videoUrl: "https://www.youtube.com/watch?v=Af_lQ1zUnoM",
     videoId: "Af_lQ1zUnoM",
     bullets: [
-      "Go to metamask.io",
-      "Install the browser extension",
-      "Create a new wallet",
-      "Secure your seed phrase",
+      "Go to metamask.io, install the extension, and create your wallet",
+      "Write your recovery phrase down offline and never share it",
+      "Add funds to your MetaMask wallet by clicking buy in the extension",
     ],
     detailsUrl: "/how-to/metamask",
   },
   {
     step: 2,
-    title: "How to Connect Your Wallet",
+    title: "How to Connect Your Wallet to SecureWork",
     videoUrl: "https://www.youtube.com/watch?v=YTconnectDemo",
     videoId: "YTconnectDemo",
     bullets: [
@@ -30,53 +29,43 @@ const howToTopics = [
     ],
     detailsUrl: "/how-to/connect-wallet",
   },
-
-
   {
     step: 3,
     title: "How to Post a Job (Clients)",
     videoUrl: "https://www.youtube.com/watch?v=YTPostJobDemo",
     videoId: "YTPostJobDemo",
     bullets: [
-      "Click 'Create New Job' from homepage or dashboard",
-      "Fill in job details, requirements, deliverables, payment amount, connected wallet",
-      "Click upload to IPFS to create a transparent record of intentions for the job",
-      "After ipfs hash is created Terms will transfer to contract creation page", 
-      "Review and confirm the job details",
-
-      "Click 'Create Job' and confirm",
+      "Click 'Create New Job'",
+      "Enter job details and requirements",
+      "Upload to IPFS for transparency",
+      "Review and confirm, then post",
     ],
     detailsUrl: "/how-to/post-job",
   },
-    {
-        step: 4,
-        title: "How to Submit Work (Freelancers)",
-        videoUrl: "https://www.youtube.com/watch?v=YTSubmitWorkDemo",
-        videoId: "YTSubmitWorkDemo",
-        bullets: [
-        "Go to your assigned job in the dashboard",
-        "Click 'Submit Work' button",
-        "Upload your work files and add any notes",
-        "Submit for AI review and client approval",
-        ],
-        detailsUrl: "/how-to/submit-work",
-    },
-    {
-        step: 5,
-        title: "What if AI Doesn't Approve?",
-        videoUrl: "https://www.youtube.com/watch?v=YTAiNotApprovedDemo",
-        videoId: "YTAiNotApprovedDemo",
-        bullets: [
-        "AI provides feedback on why it was not approved",
-        "Review the feedback carefully",
-        "Make necessary changes to your submission",
-        "Resubmit for AI review until approved",
-        ],
-        detailsUrl: "/how-to/ai-not-approved",
-    },
-
-
-
+  {
+    step: 4,
+    title: "How to Submit Work (Freelancers)",
+    videoUrl: "https://www.youtube.com/watch?v=YTSubmitWorkDemo",
+    videoId: "YTSubmitWorkDemo",
+    bullets: [
+      "Go to your assigned job in the dashboard",
+      "Click 'Submit Work' button",
+      "Upload your work files and add any notes",
+      "Submit for AI review and client approval",
+    ],
+    detailsUrl: "/how-to/submit-work",
+  },
+  {
+    step: 5,
+    title: "What to do if AI Doesn't Approve Your Submission?",
+    videoUrl: "https://www.youtube.com/watch?v=YTAiNotApprovedDemo",
+    videoId: "YTAiNotApprovedDemo",
+    bullets: [
+      "Read the AI feedback, fix what's missing, and resubmit your work",
+      "If the 3rd submission fails, request client verification",
+    ],
+    detailsUrl: "/how-to/ai-not-approved",
+  },
 ];
 
 const HowToPage: React.FC = () => (
@@ -97,36 +86,36 @@ const HowToPage: React.FC = () => (
       {howToTopics.map((topic) => (
         <div
           key={topic.step}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white rounded-2xl shadow-lg p-6 mb-12 border border-gray-100 min-h-[180px] max-h-[180px] items-center"
+          className="bg-white rounded-xl shadow-lg flex flex-col md:flex-row items-stretch min-h-[190px] mb-10 overflow-hidden"
         >
-          {/* LEFT: Video Thumbnail */}
+          {/* LEFT: Large Video Thumbnail */}
           <a
             href={topic.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex justify-center items-center h-full mb-4 md:mb-0"
-            style={{ minHeight: "100px", maxHeight: "100px" }}
+            className="md:w-1/3 w-full flex items-center justify-center bg-gray-100 p-6"
+            style={{ minHeight: "176px" }}
           >
             <img
               src={`https://img.youtube.com/vi/${topic.videoId}/hqdefault.jpg`}
               alt={topic.title}
-              className="rounded-xl shadow-md object-cover w-[120px] h-[100px] hover:scale-105 transition-transform duration-200"
+              className="rounded-lg w-72 h-44 object-cover shadow-lg"
               style={{ background: "#eee" }}
             />
           </a>
           {/* CENTER: Step bullets */}
-          <div className="flex flex-col justify-center h-full items-center md:items-start">
-            <h3 className="text-lg font-bold mb-1 text-center md:text-left">
+          <div className="md:w-1/2 w-full flex flex-col justify-center px-6 py-6">
+            <h3 className="text-xl font-bold mb-2">
               Step {topic.step}: {topic.title}
             </h3>
-            <ul className="list-disc ml-4 text-gray-700 text-base space-y-1">
-              {topic.bullets.slice(0, 4).map((item, idx) => (
+            <ul className="list-disc ml-5 text-gray-700 text-base space-y-1">
+              {topic.bullets.map((item, idx) => (
                 <li key={idx}>{item}</li>
               ))}
             </ul>
           </div>
           {/* RIGHT: See Details button */}
-          <div className="flex justify-center md:justify-end items-center h-full">
+          <div className="md:w-1/4 w-full flex items-center justify-center md:justify-end px-6 py-6">
             <Link
               to={topic.detailsUrl}
               className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow hover:scale-105 transition-transform"
