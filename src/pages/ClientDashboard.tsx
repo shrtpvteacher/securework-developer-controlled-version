@@ -23,9 +23,11 @@ const ClientDashboard: React.FC = () => {
           draggable={false}
         />
         <h2 className="text-3xl font-extrabold text-gray-900 mb-3 text-center">
-          Connect Your Wallet to unlock your dashboard and manage your job posts, spending, and results.
+          Connect Your Wallet 
         </h2>
-       
+       <p className="text-gray-700 mb-12 text-center">
+          Unlock your dashboard to manage jobs, track progress, and see earnings.
+        </p>
         <button
           className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
           // onClick={handleConnectWallet}
