@@ -16,7 +16,7 @@ import VerifyDelivery from './pages/VerifyDeliveryPage';
 import SendToDropbox from './pages/SendToDropboxPage'; 
 import HowToPage from './pages/HowToPage';
 
-import HowToFundAccount from './pages/how-to/HowToFundAccount';
+
 import HowToConnectWallet from './pages/how-to/HowToConnectWallet';
 import HowToPostJob from './pages/how-to/HowToPostJob';
 import HowToSubmitWork from './pages/how-to/HowToSubmitWork';
@@ -43,7 +43,6 @@ function App() {
               <Route path="/verify-delivery/:contractAddress/:jobId" element={<VerifyDelivery />} />
               <Route path="/send-to-dropbox/:contractAddress" element={<SendToDropbox />} />
               <Route path="/how-to" element={<HowToPage />} />
-              <Route path="/how-to/fund-account" element={<HowToFundAccount />} />
               <Route path="/how-to/connect-wallet" element={<HowToConnectWallet />} />
               <Route path="/how-to/post-job" element={<HowToPostJob />} />
               <Route path="/how-to/submit-work" element={<HowToSubmitWork />} />
