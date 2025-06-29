@@ -71,7 +71,7 @@ const ClientDashboard: React.FC = () => {
     <div className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 py-16">
       <div className="max-w-5xl w-full mx-auto">
         {/* Header and subtitle (left-aligned) */}
-        <div className="mb-10 px-2">
+        <div className="mb-10 px-2 ">
           <h1 className="text-3xl font-bold text-gray-100 mb-2">Client Dashboard</h1>
           <p className="text-gray-200">Manage your jobs and track progress</p>
         </div>
@@ -99,25 +99,35 @@ const ClientDashboard: React.FC = () => {
 
     {/* The rest of the page (white background) */}
     <div className="max-w-5xl w-full mx-auto px-2 mt-8">
-      <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6 w-fit">
-        {[
-          { key: 'all', label: 'All Jobs' },
-          { key: 'active', label: 'Active' },
-          { key: 'completed', label: 'Completed' }
-        ].map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key as 'all' | 'active' | 'completed')}
-            className={`px-4 py-2 rounded-md font-medium transition-all duration-200 ${
-              activeTab === tab.key
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+     <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6 w-fit">
+  {[
+      { key: 'all', label: 'All Jobs' },
+    { key: 'active', label: 'Active' },
+    { key: 'completed', label: 'Completed' }
+  ].map((tab) => (
+    <button
+      key={tab.key}
+      onClick={() => setActiveTab(tab.key as any)}
+      // ⬇️ Replace the old className with this whole block:
+      className={`
+        px-4 py-2 font-medium rounded-t-md transition-all duration-200
+        border border-r-2 border-t-2 border-l-2 border-b-0
+        ${
+          activeTab === tab.key
+            ? 'bg-white text-blue-600 z-20 shadow-[0_-2px_12px_-2px_rgba(40,40,40,0.16),4px_0_12px_-2px_rgba(30,30,30,0.18)] border-gray-800'
+            : 'bg-gray-100 text-gray-700 z-10 shadow-[0_-2px_8px_-2px_rgba(60,60,60,0.06),4px_0_8px_-2px_rgba(40,40,40,0.08)] border-gray-400 border-b-2'
+        }
+      `}
+      // ⬇️ Add this style prop:
+      style={{
+        position: 'relative',
+        marginBottom: activeTab === tab.key ? '-2px' : '0',
+      }}
+    >
+      {tab.label}
+    </button>
+  ))}
+</div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {getJobsToShow().map((job) => (

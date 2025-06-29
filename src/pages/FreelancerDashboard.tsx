@@ -136,25 +136,35 @@ const FreelancerDashboard: React.FC = () => {
 
 
         {/* Tabs */}
-        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6 w-fit">
-          {[
-            { key: 'available', label: 'Available Jobs' },
-            { key: 'my-jobs', label: 'My Jobs' },
-            { key: 'completed', label: 'Completed' }
-          ].map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key as any)}
-              className={`px-4 py-2 rounded-md font-medium transition-all duration-200 ${
-                activeTab === tab.key
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+       <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6 w-fit">
+  {[
+    { key: 'available', label: 'Available Jobs' },
+    { key: 'my-jobs', label: 'My Jobs' },
+    { key: 'completed', label: 'Completed' }
+  ].map((tab) => (
+    <button
+      key={tab.key}
+      onClick={() => setActiveTab(tab.key as any)}
+      // ⬇️ Replace the old className with this whole block:
+      className={`
+        px-4 py-2 font-medium rounded-t-md transition-all duration-200
+        border border-r-2 border-t-2 border-l-2 border-b-0
+        ${
+          activeTab === tab.key
+            ? 'bg-white text-blue-600 z-20 shadow-[0_-2px_12px_-2px_rgba(40,40,40,0.16),4px_0_12px_-2px_rgba(30,30,30,0.18)] border-gray-800'
+            : 'bg-gray-100 text-gray-700 z-10 shadow-[0_-2px_8px_-2px_rgba(60,60,60,0.06),4px_0_8px_-2px_rgba(40,40,40,0.08)] border-gray-400 border-b-2'
+        }
+      `}
+      // ⬇️ Add this style prop:
+      style={{
+        position: 'relative',
+        marginBottom: activeTab === tab.key ? '-2px' : '0',
+      }}
+    >
+      {tab.label}
+    </button>
+  ))}
+</div>
 
         {/* Search and Filters */}
         {activeTab === 'available' && (
