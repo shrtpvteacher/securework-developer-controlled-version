@@ -10,7 +10,7 @@ export interface Metadata {
 }
 
 export async function uploadMetadataToIPFS(metadata: Metadata): Promise<string> {
-  const res = await fetch('/.netlify/functions/uploadMetadataToIPFS', {
+  const res = await fetch('/.netlify/functions/pinMetadataToIPFS', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(metadata)
