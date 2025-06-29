@@ -4,6 +4,7 @@ import { useWallet } from '../context/WalletContext';
 import { useJobs } from '../context/JobContext';
 import CreateJobPage from './CreateJobPage';
 import JobCard from '../components/JobCard';
+import walletHero from '../assets/wallet-hero.png';
 
 const ClientDashboard: React.FC = () => {
   const { account, isConnected } = useWallet();
@@ -12,16 +13,32 @@ const ClientDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'active' | 'completed'>('all');
 
   if (!isConnected) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <File className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Your Wallet</h2>
-          <p className="text-gray-600">Please connect your wallet to access the client dashboard.</p>
-        </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center">
+      <div className="bg-white/90 rounded-3xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-auto backdrop-blur-lg">
+        <img
+          src={walletHero}
+          alt="Open wallet with dollars, bitcoin and ethereum"
+          className="w-44 h-44 mb-8 drop-shadow-2xl rounded-2xl"
+          draggable={false}
+        />
+        <h2 className="text-3xl font-extrabold text-gray-900 mb-3 text-center">
+          Connect Your Wallet
+        </h2>
+        <p className="text-lg text-gray-700 mb-8 text-center">
+          Please connect your wallet to access your freelancer dashboard, manage jobs, and earn in crypto!
+        </p>
+        <button
+          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
+          // onClick={handleConnectWallet}
+          disabled
+        >
+          Connect Wallet
+        </button>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   const allJobs = getJobsByRole(account!, 'client');
   const activeJobs = allJobs.filter(job => !['completed', 'disputed'].includes(job.status));
