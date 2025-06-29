@@ -23,11 +23,8 @@ const FreelancerDashboard: React.FC = () => {
           draggable={false}
         />
         <h2 className="text-3xl font-extrabold text-gray-900 mb-3 text-center">
-          Connect Your Wallet
+          Connect your wallet to unlock your dashboard and see your job stats, earnings, and new opportunities.
         </h2>
-        <p className="text-lg text-gray-700 mb-8 text-center">
-          Please connect your wallet to access your freelancer dashboard, manage jobs, and earn in crypto!
-        </p>
         <button
           className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
           // onClick={handleConnectWallet}
