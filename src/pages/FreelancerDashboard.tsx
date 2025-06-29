@@ -15,14 +15,14 @@ const FreelancerDashboard: React.FC = () => {
  if (!isConnected) {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center">
-      <div className="bg-white/90 rounded-3xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-auto backdrop-blur-lg">
+    
         <img
           src={walletHero}
           alt="Open wallet with dollars, bitcoin and ethereum"
           className="w-44 h-44 mb-8 drop-shadow-2xl rounded-2xl"
           draggable={false}
         />
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-3 text-center">
+        <h2 className="text-3xl font-extrabold text-gray-900 mb-5 text-center">
           Connect your wallet
         </h2>
         <p className="text-lg text-gray-700 mb-12 text-center">
@@ -36,7 +36,7 @@ const FreelancerDashboard: React.FC = () => {
           Connect Wallet
         </button>
       </div>
-    </div>
+    
   );
 }
 

@@ -22,7 +22,7 @@ const ClientDashboard: React.FC = () => {
           className="w-44 h-44 mb-8 drop-shadow-2xl rounded-2xl"
           draggable={false}
         />
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-3 text-center">
+        <h2 className="text-3xl font-extrabold text-gray-900 mb-5 text-center">
           Connect Your Wallet 
         </h2>
        <p className="text-gray-700 mb-12 text-center">
