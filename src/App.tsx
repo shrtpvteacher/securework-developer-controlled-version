@@ -20,7 +20,7 @@ import HowToFundAccount from './pages/how-to/HowToFundAccount';
 import HowToConnectWallet from './pages/how-to/HowToConnectWallet';
 import HowToPostJob from './pages/how-to/HowToPostJob';
 import HowToSubmitWork from './pages/how-to/HowToSubmitWork';
-import HowToAiNotApproved from './pages/how-to/HowToAiNotApproved';
+import HowToAiNotApproved from './pages/how-to/WhatIfAiiDoesntApprove';
 
 
 function App() {

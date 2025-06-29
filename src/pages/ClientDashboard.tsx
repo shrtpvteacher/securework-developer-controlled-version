@@ -12,31 +12,38 @@ const ClientDashboard: React.FC = () => {
   const [showCreateJob, setShowCreateJob] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'active' | 'completed'>('all');
 
+  
   if (!isConnected) {
   return (
-    <section className="py-20 bg-gradient-to-r from-blue-600 to-emerald-600">
-       <div className="bg-white/90 rounded-3xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-12 ">
-        <img
-          src={walletHero}
-          alt="Open wallet with dollars, bitcoin and ethereum"
-          className="w-44 h-44 mb-8 drop-shadow-2xl rounded-2xl"
-          draggable={false}
-        />
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-5 text-center">
-          Connect Your Wallet 
-        </h2>
-       <p className="text-gray-700 mb-12 text-center">
-          to unlock your dashboard manage jobs, track progress, and see stats.
-        </p>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* HERO ROW STRIP with margin from navbar */}
+      <div className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 py-14 flex justify-center mt-10">
+        <div className="bg-white/90 rounded-xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-auto backdrop-blur-lg">
+          <img
+            src={walletHero}
+            alt="Open wallet with dollars, bitcoin and ethereum"
+            className="w-44 h-35 mb-8 drop-shadow-2xl rounded-xl"
+            draggable={false}
+          />
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-5 text-center">
+            Connect your wallet
+          </h2>
+          <p className="text-lg text-gray-700 mb-0 text-center">
+            to unlock your dashboard manage jobs, track progress, and see stats.
+          </p>
+        </div>
+      </div>
+      {/* WHITE ROW with connect button */}
+      <div className="w-full bg-white flex justify-center py-8 shadow">
         <button
-          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
+          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:scale-105 transition-all text-xl"
           // onClick={handleConnectWallet}
           disabled
         >
           Connect Wallet
         </button>
       </div>
-    </section>
+    </div>
   );
 }
 

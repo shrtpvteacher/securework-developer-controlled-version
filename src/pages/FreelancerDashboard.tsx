@@ -12,32 +12,37 @@ const FreelancerDashboard: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [priceFilter, setPriceFilter] = useState<'all' | 'low' | 'medium' | 'high'>('all');
 
- if (!isConnected) {
+if (!isConnected) {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center">
-       <div className="bg-white/90 rounded-3xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-auto backdrop-blur-lg">
-        <img
-          src={walletHero}
-          alt="Open wallet with dollars, bitcoin and ethereum"
-          className="w-44 h-35 mb-8 drop-shadow-2xl rounded-xl"
-          draggable={false}
-        />
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-5 text-center">
-          Connect Your wallet
-        </h2>
-        <p className="text-lg text-gray-700 mb-12 text-center">
-           to unlock your dashboard, manage jobs, see earnings, and new opportunities!
-        </p>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* HERO ROW STRIP with margin from navbar */}
+      <div className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 py-14 flex justify-center mt-10">
+        <div className="bg-white/90 rounded-xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-auto backdrop-blur-lg">
+          <img
+            src={walletHero}
+            alt="Open wallet with dollars, bitcoin and ethereum"
+            className="w-44 h-35 mb-8 drop-shadow-2xl rounded-xl"
+            draggable={false}
+          />
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-5 text-center">
+            Connect your wallet
+          </h2>
+          <p className="text-lg text-gray-700 mb-0 text-center">
+            to unlock your dashboard, manage jobs, see earnings, and new opportunities!
+          </p>
+        </div>
+      </div>
+      {/* WHITE ROW with connect button */}
+      <div className="w-full bg-white flex justify-center py-8 shadow">
         <button
-          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
+          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:scale-105 transition-all text-xl"
           // onClick={handleConnectWallet}
           disabled
         >
           Connect Wallet
         </button>
       </div>
-      </div>
-    
+    </div>
   );
 }
 

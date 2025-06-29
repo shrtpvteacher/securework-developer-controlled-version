@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const howToTopics = [
   {
     step: 1,
-    title: "How to Get a MetaMask Wallet",
+    title: "How to Get a MetaMask Wallet & Fund it",
     videoUrl: "https://www.youtube.com/watch?v=Af_lQ1zUnoM",
     videoId: "Af_lQ1zUnoM",
     bullets: [
@@ -30,23 +30,10 @@ const howToTopics = [
     ],
     detailsUrl: "/how-to/connect-wallet",
   },
-  {
-    step: 3,
-    title: "How to Fund Your Account",
-    videoUrl: "https://www.youtube.com/watch?v=QqZ6B1H9lfs",
-    videoId: "QqZ6B1H9lfs",
-    bullets: [
-      "Buy ETH from an exchange or friend",
-      "Copy your MetaMask wallet address",
-      "Send ETH to your address",
-      "Check balance before starting",
-    ],
-    detailsUrl: "/how-to/fund-account",
-  },
-  
+
 
   {
-    step: 4,
+    step: 3,
     title: "How to Post a Job (Clients)",
     videoUrl: "https://www.youtube.com/watch?v=YTPostJobDemo",
     videoId: "YTPostJobDemo",
@@ -61,6 +48,32 @@ const howToTopics = [
     ],
     detailsUrl: "/how-to/post-job",
   },
+    {
+        step: 4,
+        title: "How to Submit Work (Freelancers)",
+        videoUrl: "https://www.youtube.com/watch?v=YTSubmitWorkDemo",
+        videoId: "YTSubmitWorkDemo",
+        bullets: [
+        "Go to your assigned job in the dashboard",
+        "Click 'Submit Work' button",
+        "Upload your work files and add any notes",
+        "Submit for AI review and client approval",
+        ],
+        detailsUrl: "/how-to/submit-work",
+    },
+    {
+        step: 5,
+        title: "What if AI Doesn't Approve?",
+        videoUrl: "https://www.youtube.com/watch?v=YTAiNotApprovedDemo",
+        videoId: "YTAiNotApprovedDemo",
+        bullets: [
+        "AI provides feedback on why it was not approved",
+        "Review the feedback carefully",
+        "Make necessary changes to your submission",
+        "Resubmit for AI review until approved",
+        ],
+        detailsUrl: "/how-to/ai-not-approved",
+    },
 
 
 
