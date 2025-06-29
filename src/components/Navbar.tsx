@@ -14,6 +14,8 @@ const Navbar: React.FC = () => {
     { path: '/create-job', label: 'Create Job' },
     { path: '/client-dashboard', label: 'Client Dashboard' },
     { path: '/freelancer-dashboard', label: 'Freelancer Dashboard' },
+    { path: '/how-to', label: 'How To Page' }
+
     
   ];
 

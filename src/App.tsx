@@ -14,6 +14,13 @@ import Footer from './components/Footer';
 import SubmitForReview from './pages/SubmitForReviewPage';
 import VerifyDelivery from './pages/VerifyDeliveryPage';
 import SendToDropbox from './pages/SendToDropboxPage'; 
+import HowToPage from './pages/HowToPage';
+import HowToMetaMask from './pages/how-to/HowToMetaMask';
+import HowToFundAccount from './pages/how-to/HowToFundAccount';
+import HowToConnectWallet from './pages/how-to/HowToConnectWallet';
+import HowToPostJob from './pages/how-to/HowToPostJob';
+import HowToSubmitWork from './pages/how-to/HowToSubmitWork';
+import HowToAiNotApproved from './pages/how-to/HowToAiNotApproved';
 
 
 
@@ -36,6 +43,13 @@ function App() {
               <Route path="/submit-for-review/:contractAddress" element={<SubmitForReview />} />
               <Route path="/verify-delivery/:contractAddress/:jobId" element={<VerifyDelivery />} />
               <Route path="/send-to-dropbox/:contractAddress" element={<SendToDropbox />} />
+              <Route path="/how-to" element={<HowToPage />} />
+              <Route path="/how-to/metamask" element={<HowToMetaMask />} />
+              <Route path="/how-to/fund-account" element={<HowToFundAccount />} />
+              <Route path="/how-to/connect-wallet" element={<HowToConnectWallet />} />
+              <Route path="/how-to/post-job" element={<HowToPostJob />} />
+              <Route path="/how-to/submit-work" element={<HowToSubmitWork />} />
+              <Route path="/how-to/ai-not-approved" element={<HowToAiNotApproved />} />
             </Routes>
 
             <Footer />
