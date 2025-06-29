@@ -14,8 +14,8 @@ const ClientDashboard: React.FC = () => {
 
   if (!isConnected) {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center">
-      <div className="bg-white/90 rounded-3xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-auto backdrop-blur-lg">
+    <section className="py-20 bg-gradient-to-r from-blue-600 to-emerald-600">
+       <div className="bg-white/90 rounded-3xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-12 ">
         <img
           src={walletHero}
           alt="Open wallet with dollars, bitcoin and ethereum"
@@ -36,7 +36,7 @@ const ClientDashboard: React.FC = () => {
           Connect Wallet
         </button>
       </div>
-    </div>
+    </section>
   );
 }
 

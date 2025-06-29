@@ -19,19 +19,6 @@ const howToTopics = [
   },
   {
     step: 2,
-    title: "How to Fund Your Account",
-    videoUrl: "https://www.youtube.com/watch?v=QqZ6B1H9lfs",
-    videoId: "QqZ6B1H9lfs",
-    bullets: [
-      "Buy ETH from an exchange or friend",
-      "Copy your MetaMask wallet address",
-      "Send ETH to your address",
-      "Check balance before starting",
-    ],
-    detailsUrl: "/how-to/fund-account",
-  },
-  {
-    step: 3,
     title: "How to Connect Your Wallet",
     videoUrl: "https://www.youtube.com/watch?v=YTconnectDemo",
     videoId: "YTconnectDemo",
@@ -44,96 +31,39 @@ const howToTopics = [
     detailsUrl: "/how-to/connect-wallet",
   },
   {
-    step: 4,
-    title: "How to Use Your Dashboard",
-    videoUrl: "https://www.youtube.com/watch?v=YTDashboardDemo",
-    videoId: "YTDashboardDemo",
+    step: 3,
+    title: "How to Fund Your Account",
+    videoUrl: "https://www.youtube.com/watch?v=QqZ6B1H9lfs",
+    videoId: "QqZ6B1H9lfs",
     bullets: [
-      "See your job stats and earnings",
-      "Switch tabs for jobs and proposals",
-      "Click jobs to view their details",
-      "Track all your activity here",
+      "Buy ETH from an exchange or friend",
+      "Copy your MetaMask wallet address",
+      "Send ETH to your address",
+      "Check balance before starting",
     ],
-    detailsUrl: "/how-to/dashboard",
+    detailsUrl: "/how-to/fund-account",
   },
+  
+
   {
-    step: 5,
+    step: 4,
     title: "How to Post a Job (Clients)",
     videoUrl: "https://www.youtube.com/watch?v=YTPostJobDemo",
     videoId: "YTPostJobDemo",
     bullets: [
-      "Go to 'Post a Job'",
-      "Fill in job details and requirements",
-      "Set payment, deadline, and options",
+      "Click 'Create New Job' from homepage or dashboard",
+      "Fill in job details, requirements, deliverables, payment amount, connected wallet",
+      "Click upload to IPFS to create a transparent record of intentions for the job",
+      "After ipfs hash is created Terms will transfer to contract creation page", 
+      "Review and confirm the job details",
+
       "Click 'Create Job' and confirm",
     ],
     detailsUrl: "/how-to/post-job",
   },
-  {
-    step: 6,
-    title: "How to Find & Apply for Jobs (Freelancers)",
-    videoUrl: "https://www.youtube.com/watch?v=YTFindJobsDemo",
-    videoId: "YTFindJobsDemo",
-    bullets: [
-      "Browse available jobs on the dashboard",
-      "Read the job details and requirements",
-      "Click 'Apply' and submit your proposal",
-      "Track your applications and offers",
-    ],
-    detailsUrl: "/how-to/apply-jobs",
-  },
-  {
-    step: 7,
-    title: "How to Submit Work & Get Paid",
-    videoUrl: "https://www.youtube.com/watch?v=YTSubmitWorkDemo",
-    videoId: "YTSubmitWorkDemo",
-    bullets: [
-      "Go to your active job",
-      "Click 'Submit Work' and upload files",
-      "Add comments or links if needed",
-      "Wait for client review and payment",
-    ],
-    detailsUrl: "/how-to/submit-work",
-  },
-  {
-    step: 8,
-    title: "How to Dispute a Job or Payment",
-    videoUrl: "https://www.youtube.com/watch?v=YTDisputeDemo",
-    videoId: "YTDisputeDemo",
-    bullets: [
-      "Go to the job details page",
-      "Click 'Dispute' and describe your issue",
-      "Wait for platform review",
-      "Check your dashboard for updates",
-    ],
-    detailsUrl: "/how-to/dispute",
-  },
-  {
-    step: 9,
-    title: "How to Update Your Profile",
-    videoUrl: "https://www.youtube.com/watch?v=YTProfileDemo",
-    videoId: "YTProfileDemo",
-    bullets: [
-      "Click on your avatar at the top right",
-      "Select 'Profile' from the menu",
-      "Edit your details and bio",
-      "Save your changes",
-    ],
-    detailsUrl: "/how-to/profile",
-  },
-  {
-    step: 10,
-    title: "Security Tips & Troubleshooting",
-    videoUrl: "https://www.youtube.com/watch?v=YTSecurityDemo",
-    videoId: "YTSecurityDemo",
-    bullets: [
-      "Never share your wallet seed phrase",
-      "Check job details before applying",
-      "Use support if you have an issue",
-      "Contact us for urgent help",
-    ],
-    detailsUrl: "/how-to/security",
-  },
+
+
+
 ];
 
 const HowToPage: React.FC = () => (

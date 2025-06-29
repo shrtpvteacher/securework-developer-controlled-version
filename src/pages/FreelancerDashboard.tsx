@@ -19,7 +19,7 @@ const FreelancerDashboard: React.FC = () => {
         <img
           src={walletHero}
           alt="Open wallet with dollars, bitcoin and ethereum"
-          className="w-44 h-44 mb-8 drop-shadow-2xl rounded-2xl"
+          className="w-44 h-35 mb-8 drop-shadow-2xl rounded-xl"
           draggable={false}
         />
         <h2 className="text-3xl font-extrabold text-gray-900 mb-5 text-center">
