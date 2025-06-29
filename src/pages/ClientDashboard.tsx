@@ -66,13 +66,16 @@ const ClientDashboard: React.FC = () => {
   ];
 
   return (
-  <div className="min-h-screen bg-gray-50 px-4 py-8"> // CHANGE THIS LINE
-  <div className="bg-gradient-to-r from-blue-600 to-emerald-600 rounded-2xl max-w-7xl mx-auto mt-8 mb-12 px-6 py-8">
-          <p className="text-gray-200">Manage your jobs and track progress</p>
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"> 
-        {stats.map((stat, index) => (
-          <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            
+  <div className="min-h-screen bg-gray-50 px-4 py-8">
+    <div className="bg-gradient-to-r from-blue-600 to-emerald-600 rounded-2xl max-w-7xl mx-auto mt-8 mb-12 ">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-100 mb-2">Freelancer Dashboard</h1>
+        <p className="text-gray-200">Manage your jobs and track progress</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"> 
+          {stats.map((stat, index) => (
+            <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div>
                 <p className="text-sm font-medium text-gray-600">{stat.label}</p>
                 <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
@@ -80,10 +83,11 @@ const ClientDashboard: React.FC = () => {
               <div className="p-3 rounded-lg bg-gray-100">
                 <stat.icon className="h-6 w-6 text-gray-400" />
               </div>
-            </div>
-        ))}
-      </div>
+              </div>
+          ))}
         </div>
+        </div>
+      
 
       {/* Tabs */}
       <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6 w-fit">
