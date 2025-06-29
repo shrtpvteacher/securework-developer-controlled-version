@@ -14,38 +14,38 @@ const FreelancerDashboard: React.FC = () => {
 
 if (!isConnected) {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* HERO ROW STRIP with margin from navbar */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 py-14 flex justify-center mt-10">
-        <div className="bg-white/90 rounded-xl shadow-2xl p-10 flex flex-col items-center border-4 border-blue-100 max-w-lg mx-auto backdrop-blur-lg">
+    <>
+      {/* Gradient hero with card */}
+      <div className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center py-8">
+        <div className="bg-white/90 rounded-2xl shadow-2xl p-6 flex flex-col items-center border-4 border-blue-100 max-w-md mx-auto backdrop-blur-lg">
           <img
             src={walletHero}
             alt="Open wallet with dollars, bitcoin and ethereum"
-            className="w-44 h-35 mb-8 drop-shadow-2xl rounded-xl"
+            className="w-32 h-24 mb-4 drop-shadow-2xl rounded-xl"
             draggable={false}
           />
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-5 text-center">
-            Connect your wallet
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center leading-tight bg-gradient-to-r from-blue-600 via-amber-300 to-emerald-600 bg-clip-text text-transparent mb-3">
+            Connect Your Wallet
           </h2>
-          <p className="text-lg text-gray-700 mb-0 text-center">
+          <p className="text-base text-gray-700 mb-6 text-center">
             to unlock your dashboard, manage jobs, see earnings, and new opportunities!
           </p>
         </div>
       </div>
-      {/* WHITE ROW with connect button */}
-      <div className="w-full bg-white flex justify-center py-8 shadow">
+
+      {/* Separate white section for the button with extra space */}
+      <div className="w-full flex justify-center py-10 bg-white">
         <button
-          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:scale-105 transition-all text-xl"
+          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
           // onClick={handleConnectWallet}
           disabled
         >
           Connect Wallet
         </button>
       </div>
-    </div>
+    </>
   );
 }
-
   const myJobs = getJobsByRole(account!, 'freelancer') || [];
   const availableJobs = jobs.filter(job => 
     job.freelancerAddress.toLowerCase() !== account!.toLowerCase() &&
