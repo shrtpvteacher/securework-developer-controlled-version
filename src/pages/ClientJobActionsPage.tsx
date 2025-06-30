@@ -1,4 +1,5 @@
 // File: src/pages/ClientJobActionsPage.tsx
+/*
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
@@ -99,3 +100,4 @@ const ClientJobActionsPage: React.FC = () => {
 };
 
 export default ClientJobActionsPage;
+*/
