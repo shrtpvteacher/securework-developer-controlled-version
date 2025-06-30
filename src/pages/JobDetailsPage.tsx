@@ -182,9 +182,7 @@ const JobDetailsPage: React.FC = () => {
           />
         )}
 
-        {/* Freelancer Client Verification Request Button */}
-        {/* Freelancer Client Verification Request Button */}
-        {/* Component 'FreelancerClientVerificationRequestButton' not found, so this section is removed. */}
+       
         {/* Work Submission Section (toggle modal or show form) */}
         {isFreelancer && job.status === 'accepted' && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
@@ -193,7 +191,7 @@ const JobDetailsPage: React.FC = () => {
               Upload your completed work for AI verification and client review.
             </p>
             <button
-             {/* onClick={() => setShowWorkSubmission(true)} */} 
+              onClick={() => setShowWorkSubmission(true)} 
               className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 flex items-center space-x-2"
             >
               <Upload className="h-5 w-5" />

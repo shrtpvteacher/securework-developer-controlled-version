@@ -10,6 +10,8 @@ import AIReviewResults from "./pages/AIReviewResultsPage";
 import { WalletProvider } from './context/WalletContext';
 import { JobProvider } from './context/JobContext';
 import CreateJobPage from './pages/CreateJobPage';
+import MetadataPreviewPage from './pages/MetadataPreviewPage';
+//import DeployJobEscrowWithMetadataURL from './pages/DeployJobEscrowWithMetadataURL';
 import Footer from './components/Footer';
 import SubmitForReview from './pages/SubmitForReviewPage';
 import VerifyDelivery from './pages/VerifyDeliveryPage';
@@ -34,6 +36,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/create-job" element={<CreateJobPage />} />
+             {/*} <Route path="/deploy-job-escrow" element={<DeployJobEscrowWithMetadataURL />} /> */}
+              <Route path="/metadata-preview" element={<MetadataPreviewPage />} />
               <Route path="/job-board" element={<JobBoardGallery />} />
               <Route path="/client-dashboard" element={<ClientDashboard />} />
               <Route path="/freelancer-dashboard" element={<FreelancerDashboard />} /> 

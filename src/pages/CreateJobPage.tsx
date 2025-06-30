@@ -84,11 +84,14 @@ export default CreateJobPage; */
 
 
 // src/pages/CreateJobPage.tsx
+
+/*
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAccount } from 'wagmi';
 import { fetchContractCreationFee } from '../logic/fetchContractCreationFee';
 import MetadataSetUpStep from '../components/MetadataSetUpStep';
+import MetadataPreviewPage from './MetadataPreviewPage';
 
 const CreateJobPage: React.FC = () => {
   const { address: account } = useAccount();
@@ -120,7 +123,6 @@ const CreateJobPage: React.FC = () => {
     fetchEthPrice();
   }, []);
 
-  /* called once metadata has been uploaded */
   const handleContinue = ({
     metadataURI,
     metadata,
@@ -132,7 +134,7 @@ const CreateJobPage: React.FC = () => {
     setMetadata(metadata);
   };
 
-  /* placeholder for deploy contract logic */
+  
   const handleDeployJobContract = () => {
     if (!metadataURI || !metadata) return;
 
@@ -143,7 +145,7 @@ const CreateJobPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto mt-12 p-6 bg-white shadow-2xl space-y-8">
 
-      {/* Email input card */}
+   
       <div className="bg-gray-100 p-4 shadow-2xl rounded-md">
         <label className="text-center  text-lg block font-semibold mb-1">Enter Email Address For Deliverables Notifications</label>
         <input
@@ -158,7 +160,7 @@ const CreateJobPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Factory fee display */}
+    
 
       <p className="text-center text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
   Contract Creation Fee: <span className="font-black">{creationFee} ETH</span>
@@ -170,7 +172,7 @@ const CreateJobPage: React.FC = () => {
 
 </p>
 
-      {/* Conditional rendering: show upload step OR deploy button */}
+      
       {!metadataURI ? (
         <MetadataSetUpStep
           clientAddress={account || ''}
@@ -204,6 +206,105 @@ const CreateJobPage: React.FC = () => {
           </button>
         </div>
       )}
+    </div>
+  );
+};
+
+export default CreateJobPage; */
+
+
+
+
+// src/pages/CreateJobPage.tsx
+
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAccount } from 'wagmi';
+import { fetchContractCreationFee } from '../logic/fetchContractCreationFee';
+import MetadataSetUpStep from '../components/MetadataSetUpStep';
+
+const CreateJobPage: React.FC = () => {
+  const { address: account } = useAccount();
+  const navigate = useNavigate();
+
+  const [creationFee, setCreationFee] = useState<string>('…');
+  const [clientEmail, setClientEmail] = useState<string>('');
+  const [ethPrice, setEthPrice] = useState<number | null>(null);
+
+  // Fetch contract creation fee once on mount
+  useEffect(() => {
+    fetchContractCreationFee().then(setCreationFee).catch(console.error);
+  }, []);
+
+  // Fetch ETH price once on mount
+  useEffect(() => {
+    async function fetchEthPrice() {
+      try {
+        const res = await fetch(
+          'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+        );
+        const data = await res.json();
+        setEthPrice(data.ethereum.usd);
+      } catch (error) {
+        console.error('Failed to fetch ETH price:', error);
+      }
+    }
+    fetchEthPrice();
+  }, []);
+
+  // Called after metadata upload, routes to preview page
+  const handleContinue = ({
+    metadataURI,
+    metadata,
+  }: {
+    metadataURI: string;
+    metadata: any;
+  }) => {
+    navigate('/metadata-preview', {
+      state: {
+        metadata,
+        metadataURI,
+        clientEmail,
+      },
+    });
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto mt-12 p-6 bg-white shadow-2xl space-y-8">
+
+      {/* Email input card */}
+      <div className="bg-gray-100 p-4 shadow-2xl rounded-md">
+        <label className="text-center text-lg block font-semibold mb-1">
+          Enter Email Address For Deliverables Notifications
+        </label>
+        <input
+          type="email"
+          placeholder="Enter your email address"
+          className="w-full border border-gray-200 p-1 rounded-md"
+          value={clientEmail}
+          onChange={(e) => setClientEmail(e.target.value)}
+        />
+        <p className="text-sm text-gray-600 mt-1 italic">
+          Your email is used to receive deliverables and is <strong>not</strong> stored on-chain or on IPFS.
+        </p>
+      </div>
+
+      {/* Factory fee display */}
+      <p className="text-center text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
+        Contract Creation Fee: <span className="font-black">{creationFee} ETH</span>
+        {ethPrice && (
+          <span className="ml-2 text-2xl font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
+            (~${(parseFloat(creationFee) * ethPrice).toFixed(2)} USD)
+          </span>
+        )}
+      </p>
+
+      {/* Metadata setup and upload */}
+      <MetadataSetUpStep
+        clientAddress={account || ''}
+        contractCreationFee={creationFee}
+        onContinue={handleContinue}
+      />
     </div>
   );
 };
