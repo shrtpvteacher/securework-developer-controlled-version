@@ -38,7 +38,7 @@ const FundEscrowAndMintNFTCard: React.FC<Props> = ({ jobAddress, jobPay, onFunde
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 max-w-lg mx-auto space-y-4">
       <h3 className="text-xl font-semibold text-center">Fund Escrow & Mint NFT #0</h3>
-      <p className="text-gray-600 text-center">
+      <p className="mb-4 text-gray-600 text-center">
         Deposit <strong>{jobPay} ETH</strong> into escrow and mint NFT #0 to yourself as the client.
       </p>
       {error && <div className="text-red-500 text-center">{error}</div>}
