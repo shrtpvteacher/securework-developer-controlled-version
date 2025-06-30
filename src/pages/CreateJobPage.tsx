@@ -141,10 +141,10 @@ const CreateJobPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-12 p-6 bg-white shadow-xl rounded-xl space-y-8">
+    <div className="max-w-4xl mx-auto mt-12 p-6 bg-white shadow-2xl space-y-8">
 
       {/* Email input card */}
-      <div className="bg-gray-100 p-4 rounded-md">
+      <div className="bg-gray-100 p-4 shadow-2xl rounded-md">
         <label className="text-center  text-lg block font-semibold mb-1">Enter Email Address For Deliverables Notifications</label>
         <input
           type="email"
@@ -163,7 +163,7 @@ const CreateJobPage: React.FC = () => {
       <p className="text-center text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
   Contract Creation Fee: <span className="font-black">{creationFee} ETH</span>
           {ethPrice && (
-          <span className="ml-2 text-3xl font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparen">
+          <span className="ml-2 text-2xl font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparen">
             (~${(parseFloat(creationFee) * ethPrice).toFixed(2)} USD)
           </span>
         )}

@@ -56,7 +56,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
 
   return (
     <div className="space-y-4 bg-gray-100 p-6 shadow-2xl">
-         <h2 className=" text-sm font-semibold mb-2">Job Title</h2>
+         <h2 className=" text-lg font-semibold mb-2">Job Title</h2>
       <input
         type="text"
         placeholder="Job Title"
