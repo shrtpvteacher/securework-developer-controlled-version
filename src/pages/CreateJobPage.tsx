@@ -139,7 +139,7 @@ const CreateJobPage: React.FC = () => {
 
       {/* Factory fee display */}
 
-      <p className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
+      <p className="text-center block font-semibold mb-1">
         Contract Creation Fee:&nbsp;
         <span className="font-semibold">{creationFee} ETH</span>
       </p>
