@@ -9,9 +9,8 @@ const Footer: FC = () => (
       padding: "1.5rem 2rem",
       fontSize: "1rem",
       color: "#555",
-      position: "relative",
-      zIndex: 2,
       borderTop: "1px solid #eee",
+      boxSizing: "border-box",
     }}
   >
     <div
@@ -19,12 +18,14 @@ const Footer: FC = () => (
         maxWidth: "960px",
         margin: "0 auto",
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
+        justifyContent: "space-between",
+        gap: "24px",
+        flexWrap: "wrap",
       }}
     >
       {/* Left: Copyright */}
-      <div style={{ flex: 1, textAlign: "left" }}>
+      <div style={{ flex: "1 1 auto", minWidth: "150px", textAlign: "left" }}>
         &copy; {new Date().getFullYear()} SecureWork. All rights reserved.
       </div>
 
@@ -32,11 +33,11 @@ const Footer: FC = () => (
       <div
         style={{
           display: "flex",
-          alignItems: "center",
-          gap: "32px",
-          flexShrink: 0,
+          gap: "48px", // gap between LinkedIn and GitHub
           justifyContent: "center",
-          minWidth: "200px",
+          flex: "2 1 auto",
+          minWidth: "250px",
+          flexWrap: "wrap",
         }}
       >
         {/* LinkedIn */}
@@ -49,8 +50,8 @@ const Footer: FC = () => (
             textDecoration: "none",
             display: "flex",
             alignItems: "center",
-            gap: "6px",
-            fontWeight: "500",
+            gap: "8px",
+            fontWeight: "600",
           }}
         >
           <svg
@@ -76,8 +77,8 @@ const Footer: FC = () => (
             textDecoration: "none",
             display: "flex",
             alignItems: "center",
-            gap: "6px",
-            fontWeight: "500",
+            gap: "8px",
+            fontWeight: "600",
           }}
         >
           <svg
@@ -94,20 +95,21 @@ const Footer: FC = () => (
         </a>
       </div>
 
-      {/* Right: Bolt badge */}
-      <div style={{ marginRight: "24px" }}>
+      {/* Right: Bolt badge + text */}
+      <div style={{ flex: "1 1 auto", minWidth: "150px", textAlign: "right", paddingRight: "12px" }}>
         <a
           href="https://bolt.new"
           target="_blank"
           rel="noopener noreferrer"
           style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "24px", // 6 gap = 24px
             background: "rgba(255,255,255,0.8)",
             borderRadius: 8,
             boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-            padding: 4,
+            padding: "4px 12px",
             transition: "box-shadow 0.2s",
-            display: "flex",
-            alignItems: "center",
           }}
           onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.16)")}
           onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)")}
@@ -117,6 +119,7 @@ const Footer: FC = () => (
             alt="Built with Bolt"
             style={{ height: 40, width: "auto", display: "block" }}
           />
+          <span style={{ fontWeight: 600, color: "#111" }}>Built using bolt.new</span>
         </a>
       </div>
     </div>
