@@ -2,13 +2,9 @@ const { ethers } = require("ethers");
 const factoryABI = require('./abis/JobEscrowFactoryABI.json');
 const jobABI = require('./abis/JobEscrowABI.json');
 
-const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
+const provider = new ethers.providers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`);
 
 const factoryAddress = process.env.FACTORY_ADDRESS;
-
-
-
-
 
 exports.handler = async () => {
   try {
@@ -49,12 +45,21 @@ exports.handler = async () => {
     ];
     return {
       statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
       body: JSON.stringify(stats)
     };
   } catch (err) {
+    console.error('Error in getStats function:', err);
     return {
       statusCode: 500,
-      body: `Error fetching stats: ${err.message}`
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({ error: `Error fetching stats: ${err.message}` })
     };
   }
 };
