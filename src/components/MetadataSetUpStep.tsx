@@ -56,31 +56,34 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
 
   return (
     <div className="space-y-4 bg-gray-200 p-6 rounded-lg shadow-2xl">
+         <h2 className="text-lg font-semibold mb-2">Job Title</h2>
       <input
         type="text"
         placeholder="Job Title"
-        className="  border-gray-400 shadow-lg p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+         className="border-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full border p-2 mb-2 rounded"
         value={formData.title}
         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
       />
+      <h2 className="text-lg font-semibold mb-2">Job Description</h2>
       <textarea
         placeholder="Job Description"
-        className="border-gray-400 shadow-lg p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+         className="border-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full border p-2 mb-2 rounded"
         rows={4}
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
       />
+      <h2 className="text-lg font-semibold mb-2">Amount You Will Pay Freelancer</h2>
       <input
         type="text"
         placeholder="Pay Amount (in ETH)"
-        className="border-gray-400 shadow-lg p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500d"
+        className="border-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full border p-2 mb-2 rounded"
         value={formData.jobPay}
         onChange={(e) => setFormData({ ...formData, jobPay: e.target.value })}
       />
 
       {/* Connected Client Address (read-only) */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Your Connected Wallet Address</label>
+        <label className="block text-sm font-medium text-gray-300 mb-1">Your Connected Wallet Address</label>
         <input
           type="text"
           readOnly
@@ -91,7 +94,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
 
       {/* Optional Freelancer Address input */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Freelancer Wallet Address (optional)</label>
+        <h2 className="text-lg font-semibold mb-2">Freelancer Wallet Address (optional)</h2>
         <input
           type="text"
           placeholder="Enter freelancer wallet address if private job"
