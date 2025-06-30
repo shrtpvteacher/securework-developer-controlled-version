@@ -164,13 +164,11 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
       </div>
 
       {uploadedURI && (
-        <p className="text-green-700 text-sm">
-          ✅ Successfully uploaded to IPFS:{' '}
-          <a href={uploadedURI} target="_blank" rel="noopener noreferrer" className="underline text-blue-700">
-            View URI
-          </a>
-        </p>
-      )}
+  <div className="text-green-700 text-sm space-y-2 break-words">
+    <p>✅ Successfully uploaded to IPFS:</p>
+    <p>{uploadedURI}</p>  {/* Plain text URL */}
+  </div>
+)}
 
       {uploadedURI && uploadedMetadata && (
         <div className="flex justify-center">
@@ -178,7 +176,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
             onClick={() => onContinue({ metadataURI: uploadedURI as string, metadata: uploadedMetadata })}
             className="mt-4 bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
           >
-            Preview Metadata →
+            Preview Metadata and Deploy JobEscrow →
           </button>
         </div>
       )}
