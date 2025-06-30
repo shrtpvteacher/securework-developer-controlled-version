@@ -1,4 +1,3 @@
-// pinMetadataToIPFS.js
 const axios = require('axios');
 
 exports.handler = async function (event) {
@@ -6,12 +5,27 @@ exports.handler = async function (event) {
 
   try {
     const body = JSON.parse(event.body);
-    const { title, description, requirements, deliverables, clientAddress, freelancerAddress, jobPay } = body;
+    const {
+      title,
+      description,
+      requirements,
+      deliverables,
+      clientAddress,
+      freelancerAddress,
+      jobPay
+    } = body;
 
-    if (!title || !description || !Array.isArray(requirements, deliverables) || !clientAddress || !jobPay) {
+    if (
+      !title ||
+      !description ||
+      !Array.isArray(requirements) ||
+      !Array.isArray(deliverables) ||
+      !clientAddress ||
+      !jobPay
+    ) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: "Missing required metadata fields." })
+        body: JSON.stringify({ error: "Missing required metadata fields." }),
       };
     }
 
@@ -20,7 +34,7 @@ exports.handler = async function (event) {
       description,
       requirements,
       deliverables,
-      creatorAddress,
+      clientAddress,
       freelancerAddress: freelancerAddress || '',
       jobPay,
       createdAt: new Date().toISOString()
@@ -47,14 +61,15 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        ipfsUrl: `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`,
+        ipfsUrl: `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
         ipfsHash,
       }),
     };
   } catch (error) {
+    console.error('Error uploading metadata to IPFS:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Failed to upload metadata to IPFS." })
+      body: JSON.stringify({ error: "Failed to upload metadata to IPFS." }),
     };
   }
 };

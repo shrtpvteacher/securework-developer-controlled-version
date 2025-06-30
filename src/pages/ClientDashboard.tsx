@@ -7,7 +7,7 @@ import JobCard from '../components/JobCard';
 import walletHero from '../assets/wallet-hero.png';
 
 const ClientDashboard: React.FC = () => {
-  const { account, isConnected } = useWallet();
+  const { account, isConnected, connectWallet } = useWallet();
   const { getJobsByRole } = useJobs();
   const [showCreateJob, setShowCreateJob] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'active' | 'completed'>('all');
@@ -37,8 +37,7 @@ const ClientDashboard: React.FC = () => {
       <div className="w-full flex justify-center py-10 bg-white">
         <button
           className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
-          // onClick={handleConnectWallet}
-          disabled
+          onClick={connectWallet}
         >
           Connect Wallet
         </button>

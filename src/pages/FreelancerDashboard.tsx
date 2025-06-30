@@ -6,7 +6,7 @@ import JobCard from '../components/JobCard';
 import walletHero from '../assets/wallet-hero.png';
 
 const FreelancerDashboard: React.FC = () => {
-  const { account, isConnected } = useWallet();
+  const { account, isConnected, connectWallet } = useWallet();
   const { jobs, getJobsByRole } = useJobs();
   const [activeTab, setActiveTab] = useState<'available' | 'my-jobs' | 'completed'>('available');
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,7 +17,7 @@ if (!isConnected) {
     <>
       {/* Gradient hero with card */}
       <div className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 flex items-center justify-center py-8">
-        <div className="bg-white/90 rounded-2xl shadow-2xl p-6 flex flex-col items-center border-4 border-blue-100 max-w-md mx-auto backdrop-blur-lg">
+        <div className="bg-white/90 rounded-xl shadow-2xl p-6 flex flex-col items-center border-4 border-blue-100 max-w-md mx-auto backdrop-blur-lg">
           <img
             src={walletHero}
             alt="Open wallet with dollars, bitcoin and ethereum"
@@ -37,8 +37,7 @@ if (!isConnected) {
       <div className="w-full flex justify-center py-10 bg-white">
         <button
           className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-105 transition-all"
-          // onClick={handleConnectWallet}
-          disabled
+           onClick={connectWallet}
         >
           Connect Wallet
         </button>
