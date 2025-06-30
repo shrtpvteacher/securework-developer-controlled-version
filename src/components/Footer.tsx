@@ -1,63 +1,52 @@
-// src/components/Footer.tsx
 import React, { FC } from "react";
 
 const Footer: FC = () => (
-  <footer
-    style={{
-      width: "100%",
-      background: "#f8fafc",
-      padding: "1.5rem 2rem",
-      fontSize: "1rem",
-      color: "#555",
-      borderTop: "1px solid #eee",
-      boxSizing: "border-box",
-    }}
-  >
-    <div
+  <>
+    <footer
       style={{
-        maxWidth: "960px",
-        margin: "0 auto",
+        width: "100%",
+        background: "#f8fafc",
+        padding: "1.5rem 0",
+        fontSize: "1rem",
+        color: "#555",
+        position: "relative",
+        zIndex: 2,
+        borderTop: "1px solid #eee",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        gap: "24px",
-        flexWrap: "wrap",
+        maxWidth: "1200px",
+        margin: "0 auto",
+        paddingLeft: "2rem",
+        paddingRight: "2rem",
       }}
     >
       {/* Left: Copyright */}
-      <div style={{ flex: "1 1 auto", minWidth: "150px", textAlign: "left" }}>
+      <div style={{ flex: "1", textAlign: "left" }}>
         &copy; {new Date().getFullYear()} SecureWork. All rights reserved.
       </div>
 
-      {/* Center: Social links */}
+      {/* Center: Links */}
       <div
         style={{
+          flex: "1",
           display: "flex",
-          gap: "48px", // gap between LinkedIn and GitHub
           justifyContent: "center",
-          flex: "2 1 auto",
-          minWidth: "250px",
-          flexWrap: "wrap",
+          gap: "2rem",
+          fontWeight: "600",
         }}
       >
-        {/* LinkedIn */}
         <a
           href="https://www.linkedin.com/in/kelly-anne-coldren/"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            color: "#0a66c2",
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontWeight: "600",
-          }}
+          style={{ color: "#0a66c2", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.3rem" }}
         >
+          {/* LinkedIn SVG */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             fill="currentColor"
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -67,36 +56,29 @@ const Footer: FC = () => (
           LinkedIn
         </a>
 
-        {/* GitHub */}
         <a
           href="https://github.com/shrtpvteacher/securework-developer-controlled-version"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            color: "#171515",
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontWeight: "600",
-          }}
+          style={{ color: "#333", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.3rem" }}
         >
+          {/* GitHub SVG */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             fill="currentColor"
             viewBox="0 0 24 24"
             aria-hidden="true"
           >
-            <path d="M12 0C5.372 0 0 5.372 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.834 2.807 1.304 3.492.997.108-.774.42-1.304.763-1.604-2.665-.3-5.466-1.332-5.466-5.933 0-1.31.467-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.018.005 2.042.137 3.003.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.12 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.63-5.48 5.922.431.372.815 1.102.815 2.222v3.293c0 .321.218.694.825.576C20.565 21.795 24 17.298 24 12c0-6.628-5.373-12-12-12z" />
+            <path d="M12 0C5.372 0 0 5.372 0 12c0 5.303 3.438 9.8 8.207 11.387.6.113.82-.258.82-.577v-2.234c-3.338.724-4.033-1.415-4.033-1.415-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.238 1.838 1.238 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.304.76-1.605-2.665-.304-5.466-1.334-5.466-5.93 0-1.311.47-2.382 1.236-3.222-.124-.304-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.241 2.873.118 3.176.77.84 1.235 1.91 1.235 3.222 0 4.61-2.804 5.624-5.475 5.921.43.37.815 1.1.815 2.222v3.293c0 .319.217.694.825.576C20.565 21.796 24 17.3 24 12c0-6.628-5.372-12-12-12z" />
           </svg>
           GitHub
         </a>
       </div>
 
-      {/* Right: Bolt badge + text */}
-      <div style={{ flex: "1 1 auto", minWidth: "150px", textAlign: "right", paddingRight: "12px" }}>
+      {/* Right: Bolt badge */}
+      <div style={{ flex: "1", textAlign: "right", paddingRight: "1.5rem" }}>
         <a
           href="https://bolt.new"
           target="_blank"
@@ -104,26 +86,31 @@ const Footer: FC = () => (
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "24px", // 6 gap = 24px
-            background: "rgba(255,255,255,0.8)",
-            borderRadius: 8,
+            gap: "0.6rem",
+            background: "rgba(255,255,255,0.9)",
+            borderRadius: "8px",
             boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-            padding: "4px 12px",
+            padding: "6px 10px",
             transition: "box-shadow 0.2s",
+            marginRight: "1rem",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.16)")}
-          onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)")}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.16)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)")
+          }
         >
           <img
             src="/bolt-badge-black_circle_360x360.png"
             alt="Built with Bolt"
             style={{ height: 40, width: "auto", display: "block" }}
           />
-          <span style={{ fontWeight: 600, color: "#111" }}>Built using bolt.new</span>
+          <span>Built with Bolt.new</span>
         </a>
       </div>
-    </div>
-  </footer>
+    </footer>
+  </>
 );
 
 export default Footer;
