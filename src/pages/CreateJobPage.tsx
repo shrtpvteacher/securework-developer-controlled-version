@@ -8,6 +8,13 @@ import { useAccount } from 'wagmi';
 import { fetchContractCreationFee } from '../logic/fetchContractCreationFee';
 import MetadataSetUpStep from '../components/MetadataSetUpStep';
 
+// Simple fetchEthPrice implementation using CoinGecko API
+async function fetchEthPrice(): Promise<number> {
+  const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd');
+  const data = await res.json();
+  return data.ethereum.usd;
+}
+
 const CreateJobPage: React.FC = () => {
   const navigate = useNavigate();
   const { address: account } = useAccount();
@@ -84,19 +91,33 @@ import { fetchContractCreationFee } from '../logic/fetchContractCreationFee';
 import MetadataSetUpStep from '../components/MetadataSetUpStep';
 
 const CreateJobPage: React.FC = () => {
-  // const navigate = useNavigate();
   const { address: account } = useAccount();
 
   const [creationFee, setCreationFee] = useState<string>('…');
   const [clientEmail, setClientEmail] = useState<string>('');
-
-  // New state for uploaded metadata URI and metadata object
   const [metadataURI, setMetadataURI] = useState<string | null>(null);
   const [metadata, setMetadata] = useState<any | null>(null);
+  const [ethPrice, setEthPrice] = useState<number | null>(null);
 
-  /* fetch fee once on mount */
+  // Fetch contract creation fee once on mount
   useEffect(() => {
-    fetchContractCreationFee().then(setCreationFee);
+    fetchContractCreationFee().then(setCreationFee).catch(console.error);
+  }, []);
+
+  // Fetch ETH price once on mount
+  useEffect(() => {
+    async function fetchEthPrice() {
+      try {
+        const res = await fetch(
+          'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+        );
+        const data = await res.json();
+        setEthPrice(data.ethereum.usd);
+      } catch (error) {
+        console.error('Failed to fetch ETH price:', error);
+      }
+    }
+    fetchEthPrice();
   }, []);
 
   /* called once metadata has been uploaded */
@@ -139,10 +160,15 @@ const CreateJobPage: React.FC = () => {
 
       {/* Factory fee display */}
 
-      <p className="text-center block font-semibold mb-1">
-        Contract Creation Fee:&nbsp;
-        <span className="font-semibold">{creationFee} ETH</span>
-      </p>
+      <p className="text-center text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
+  Contract Creation Fee: <span className="font-black">{creationFee} ETH</span>
+          {ethPrice && (
+          <span className="ml-2 text-3xl font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparen">
+            (~${(parseFloat(creationFee) * ethPrice).toFixed(2)} USD)
+          </span>
+        )}
+
+</p>
 
       {/* Conditional rendering: show upload step OR deploy button */}
       {!metadataURI ? (
