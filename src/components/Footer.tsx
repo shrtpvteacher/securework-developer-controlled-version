@@ -55,7 +55,7 @@ const Footer: FC = () => (
 
           {/* GitHub */}
           <a
-            href="https://github.com/shrtpvteacher/securework"
+            href="https://github.com/shrtpvteacher/securework-developer-controlled-version "
             target="_blank"
             rel="noopener noreferrer"
             style={{
