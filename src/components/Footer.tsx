@@ -69,7 +69,7 @@ const Footer: FC = () => (
 
         {/* GitHub */}
         <a
-          href="https://github.com/kellyannecoldren/securework-developer-controlled-version"
+          href="https://github.com/shrtpvteacher/securework-developer-controlled-version"
           target="_blank"
           rel="noopener noreferrer"
           style={{
