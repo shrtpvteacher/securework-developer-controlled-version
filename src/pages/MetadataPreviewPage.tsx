@@ -59,7 +59,6 @@ const MetadataPreviewPage: React.FC = () => {
       const { jobAddress, jobId } = await deployJobContract(uri, meta.jobPay);
       await storeEmail({
         jobAddress,
-        jobId,
         email: clientEmail || '',
         title: meta.title,
         creatorAddress: account || '',
