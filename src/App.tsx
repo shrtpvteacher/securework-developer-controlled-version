@@ -17,7 +17,7 @@ import SubmitForReview from './pages/SubmitForReviewPage';
 import VerifyDelivery from './pages/VerifyDeliveryPage';
 import SendToDropbox from './pages/SendToDropboxPage'; 
 import HowToPage from './pages/HowToPage';
-import ClientJobActionsPage from "./pages/ClientJobActionsPage";
+// import ClientJobActionsPage from "./pages/ClientJobActionsPage";
 import SubmitProposalPage from './pages/SubmitProposalPage';
 
 
@@ -41,7 +41,7 @@ function App() {
              {/*} <Route path="/deploy-job-escrow" element={<DeployJobEscrowWithMetadataURL />} /> */}
               <Route path="/metadata-preview" element={<MetadataPreviewPage />} />
               <Route path="/job-board" element={<JobBoardGallery />} />
-              <Route path="/job/:id" element={<ClientJobActionsPage />} />
+              {/* <Route path="/job/:id" element={<ClientJobActionsPage />} /> */}
               <Route path="/client-dashboard" element={<ClientDashboard />} />
               <Route path="/freelancer-dashboard" element={<FreelancerDashboard />} /> 
               <Route path="/job-board/:jobAddress/submit-proposal" element={<SubmitProposalPage />} />
