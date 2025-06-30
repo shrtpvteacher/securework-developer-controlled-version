@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { uploadMetadataToIPFS } from '../logic/ipfsUploader';
 import { Loader2 } from 'lucide-react';
-import { create } from 'domain';
 
 type Props = {
   clientAddress: string;
@@ -16,6 +15,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
     title: '',
     description: '',
     jobPay: '',
+    freelancerAddress: '',
     requirements: [''],
     deliverables: ['']
   });
@@ -55,11 +55,11 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 bg-white p-6 rounded-lg shadow-2xl">
       <input
         type="text"
         placeholder="Job Title"
-        className="w-full border p-2 rounded"
+        className="w-full border border-gray-500 shadow-md p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         value={formData.title}
         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
       />
@@ -77,7 +77,29 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
         value={formData.jobPay}
         onChange={(e) => setFormData({ ...formData, jobPay: e.target.value })}
       />
-      
+
+      {/* Connected Client Address (read-only) */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Your Connected Wallet Address</label>
+        <input
+          type="text"
+          readOnly
+          value={clientAddress}
+          className="w-full border p-2 rounded bg-gray-100 text-gray-700 cursor-not-allowed"
+        />
+      </div>
+
+      {/* Optional Freelancer Address input */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Freelancer Wallet Address (optional)</label>
+        <input
+          type="text"
+          placeholder="Enter freelancer wallet address if private job"
+          className="w-full border p-2 rounded"
+          value={formData.freelancerAddress}
+          onChange={(e) => setFormData({ ...formData, freelancerAddress: e.target.value })}
+        />
+      </div>
 
       <div>
         <h2 className="text-lg font-semibold mb-2">Requirements</h2>
@@ -122,40 +144,40 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
       </div>
 
       <div className="flex justify-center items-center">
-  <button
-    onClick={handleUpload}
-    disabled={isUploading}
-    className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
-  >
-    {isUploading ? (
-      <span className="flex items-center space-x-2">
-        <Loader2 className="animate-spin h-5 w-5" />
-        <span>Uploading...</span>
-      </span>
-    ) : (
-      'Upload Metadata to IPFS'
-    )}
-  </button>
-</div>
-
-        {uploadedURI && (
-          <p className="text-green-700 text-sm">
-            ✅ Successfully uploaded to IPFS:{' '}
-            <a href={uploadedURI} target="_blank" rel="noopener noreferrer" className="underline text-blue-700">
-              View URI
-            </a>
-          </p>
-        )}
-      
-      {uploadedURI && uploadedMetadata && (
-         <div className="flex justify-center">
         <button
-          onClick={() => onContinue({ metadataURI: uploadedURI as string, metadata: uploadedMetadata })}
-          className="mt-4 bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
+          onClick={handleUpload}
+          disabled={isUploading}
+          className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
         >
-          Preview Metadata →
+          {isUploading ? (
+            <span className="flex items-center space-x-2">
+              <Loader2 className="animate-spin h-5 w-5" />
+              <span>Uploading...</span>
+            </span>
+          ) : (
+            'Upload Metadata to IPFS'
+          )}
         </button>
-         </div>
+      </div>
+
+      {uploadedURI && (
+        <p className="text-green-700 text-sm">
+          ✅ Successfully uploaded to IPFS:{' '}
+          <a href={uploadedURI} target="_blank" rel="noopener noreferrer" className="underline text-blue-700">
+            View URI
+          </a>
+        </p>
+      )}
+
+      {uploadedURI && uploadedMetadata && (
+        <div className="flex justify-center">
+          <button
+            onClick={() => onContinue({ metadataURI: uploadedURI as string, metadata: uploadedMetadata })}
+            className="mt-4 bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-2 px-6 rounded shadow hover:opacity-90"
+          >
+            Preview Metadata →
+          </button>
+        </div>
       )}
     </div>
   );

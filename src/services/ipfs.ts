@@ -1,3 +1,4 @@
+// File: src/services/ipfs.ts
 import axios from 'axios';
 
 const pinataJWT = process.env.PINATA_JWT;
