@@ -12,48 +12,39 @@ const gradientBtn =
 const MetadataPreviewPage: React.FC = () => {
   const navigate = useNavigate();
   const { address: account } = useAccount();
-
-  // Router state provides metadata, URI, and private email
   const { state } = useLocation() as {
-    state: { metadata: any; metadataURI: string; clientEmail: string };
+    state: { metadata?: any; metadataURI?: string; clientEmail?: string };
   };
 
-  const meta = state?.metadata;
   const uri = state?.metadataURI;
   const clientEmail = state?.clientEmail;
 
-  const [fetchedMeta, setFetchedMeta] = useState<any>(null);
+  // State to hold metadata, either from router or fetched from IPFS URI
+  const [meta, setMeta] = useState<any>(state?.metadata || null);
   const [loading, setLoading] = useState(false);
-
   const [busy, setBusy] = useState(false);
-  const [deployed, setDeployed] = useState<null | {
-    jobAddress: string;
-    jobId: string;
-  }>(null);
+  const [deployed, setDeployed] = useState<null | { jobAddress: string; jobId: string }>(null);
 
-  // Use metadata from router state or fetch it from IPFS if missing
   useEffect(() => {
     if (!meta && uri) {
       setLoading(true);
       fetch(uri)
-        .then(res => res.json())
-        .then(data => setFetchedMeta(data))
-        .catch(() => setFetchedMeta(null))
+        .then((res) => res.json())
+        .then((data) => setMeta(data))
+        .catch(() => setMeta(null))
         .finally(() => setLoading(false));
     }
   }, [meta, uri]);
 
-  const dataToDisplay = meta || fetchedMeta;
-
   if (loading) {
     return (
-      <div className="text-center py-16">
+      <div className="max-w-xl mx-auto py-16 text-center">
         <p className="text-gray-600">Loading metadata...</p>
       </div>
     );
   }
 
-  if (!dataToDisplay || !uri) {
+  if (!meta || !uri) {
     return (
       <div className="max-w-xl mx-auto py-16 text-center">
         <p className="text-gray-600">No metadata found. Please start again.</p>
@@ -61,19 +52,18 @@ const MetadataPreviewPage: React.FC = () => {
     );
   }
 
-  // Deploy the JobEscrow and store email (but stay on this page)
+  // Deploy contract handler
   const handleDeploy = async () => {
     setBusy(true);
     try {
-      const { jobAddress, jobId } = await deployJobContract(uri, dataToDisplay.jobPay);
-
+      const { jobAddress, jobId } = await deployJobContract(uri, meta.jobPay);
       await storeEmail({
         jobAddress,
-        email: clientEmail,
-        title: dataToDisplay.title,
+        jobId,
+        email: clientEmail || '',
+        title: meta.title,
         creatorAddress: account || '',
       });
-
       setDeployed({ jobAddress, jobId });
     } finally {
       setBusy(false);
@@ -89,17 +79,17 @@ const MetadataPreviewPage: React.FC = () => {
       </p>
 
       {/* Public metadata card */}
-      <div className="border border-gray-300 p-4 rounded bg-gray-50 text-sm space-y-2">
-        <div><strong>Title:</strong> {dataToDisplay.title}</div>
-        <div><strong>Description:</strong> {dataToDisplay.description}</div>
-        <div><strong>Pay:</strong> {dataToDisplay.jobPay} ETH</div>
-        <div><strong>Creation Fee:</strong> {dataToDisplay.contractCreationFee} ETH</div>
-        <div><strong>Deadline:</strong> {dataToDisplay.deadline}</div>
-        <div><strong>Client Address:</strong> {dataToDisplay.clientAddress}</div>
+      <div className="border border-gray-300 p-4 rounded bg-gray-50 text-sm space-y-2 break-words">
+        <div><strong>Title:</strong> {meta.title}</div>
+        <div><strong>Description:</strong> {meta.description}</div>
+        <div><strong>Pay:</strong> {meta.jobPay} ETH</div>
+        <div><strong>Creation Fee:</strong> {meta.contractCreationFee} ETH</div>
+        <div><strong>Deadline:</strong> {meta.deadline}</div>
+        <div><strong>Client Address:</strong> {meta.clientAddress}</div>
         <div>
           <strong>Requirements:</strong>
           <ul className="list-disc list-inside ml-4">
-            {(dataToDisplay.requirements || []).map((r: string, i: number) => (
+            {meta.requirements?.map((r: string, i: number) => (
               <li key={i}>{r}</li>
             ))}
           </ul>
@@ -107,13 +97,13 @@ const MetadataPreviewPage: React.FC = () => {
         <div>
           <strong>Deliverables:</strong>
           <ul className="list-disc list-inside ml-4">
-            {(dataToDisplay.deliverables || []).map((d: string, i: number) => (
+            {meta.deliverables?.map((d: string, i: number) => (
               <li key={i}>{d}</li>
             ))}
           </ul>
         </div>
         <div>
-          <strong>IPFS URI:</strong>{' '}
+          <strong>IPFS URI:</strong> <br />
           <span className="break-all">{uri}</span>
         </div>
       </div>
@@ -124,12 +114,7 @@ const MetadataPreviewPage: React.FC = () => {
           <p>✅ Job contract deployed successfully!</p>
           <p>
             <strong>Contract Address:</strong>{' '}
-            <a
-              href={`https://etherscan.io/address/${deployed.jobAddress}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-            >
+            <a href={`https://etherscan.io/address/${deployed.jobAddress}`} target="_blank" rel="noopener noreferrer" className="underline">
               {deployed.jobAddress}
             </a>
           </p>
