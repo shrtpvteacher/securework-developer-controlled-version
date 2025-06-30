@@ -128,7 +128,7 @@ const CreateJobPage: React.FC = () => {
         <input
           type="email"
           placeholder="Enter your email address"
-          className="w-full border border-gray-300 p-2 rounded-md"
+          className="w-full border border-gray-200 p-1 rounded-md"
           value={clientEmail}
           onChange={(e) => setClientEmail(e.target.value)}
         />
@@ -139,7 +139,7 @@ const CreateJobPage: React.FC = () => {
 
       {/* Factory fee display */}
 
-      <p className="text-center gradient-text from-blue-600 via-purple-600 to-emerald-600 bg-clip-text-lg font-bold ">
+      <p className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
         Contract Creation Fee:&nbsp;
         <span className="font-semibold">{creationFee} ETH</span>
       </p>
