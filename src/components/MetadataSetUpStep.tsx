@@ -55,17 +55,17 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
   };
 
   return (
-    <div className="space-y-4 bg-white p-6 rounded-lg shadow-2xl">
+    <div className="space-y-4 bg-gray-200 p-6 rounded-lg shadow-2xl">
       <input
         type="text"
         placeholder="Job Title"
-        className="w-full border border-gray-500 shadow-md p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="  border-gray-400 shadow-lg p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         value={formData.title}
         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
       />
       <textarea
         placeholder="Job Description"
-        className="w-full border p-2 rounded"
+        className="border-gray-400 shadow-lg p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         rows={4}
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -73,7 +73,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
       <input
         type="text"
         placeholder="Pay Amount (in ETH)"
-        className="w-full border p-2 rounded"
+        className="border-gray-400 shadow-lg p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500d"
         value={formData.jobPay}
         onChange={(e) => setFormData({ ...formData, jobPay: e.target.value })}
       />
@@ -95,7 +95,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
         <input
           type="text"
           placeholder="Enter freelancer wallet address if private job"
-          className="w-full border p-2 rounded"
+          className="border-gray-400 shadow-lg p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={formData.freelancerAddress}
           onChange={(e) => setFormData({ ...formData, freelancerAddress: e.target.value })}
         />
@@ -108,7 +108,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
             key={idx}
             type="text"
             placeholder={`Requirement ${idx + 1}`}
-            className="w-full border p-2 mb-2 rounded"
+            className="border-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full border p-2 mb-2 rounded"
             value={req}
             onChange={(e) => handleArrayChange(idx, 'requirements', e.target.value)}
           />
@@ -129,7 +129,7 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
             key={idx}
             type="text"
             placeholder={`Deliverable ${idx + 1}`}
-            className="w-full border p-2 mb-2 rounded"
+            className="border-gray-400 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full border p-2 mb-2 rounded"
             value={del}
             onChange={(e) => handleArrayChange(idx, 'deliverables', e.target.value)}
           />
