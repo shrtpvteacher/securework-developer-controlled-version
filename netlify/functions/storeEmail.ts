@@ -9,7 +9,7 @@ export const handler: Handler  = async (event) => {
   }
 
   try {
-    const { jobAddress, creatorEmail, freelancerAddress, creatorAddress, jobTitle } = JSON.parse(event.body || '{}');
+    const { jobAddress, jobId, creatorEmail, freelancerAddress, creatorAddress, jobTitle } = JSON.parse(event.body || '{}');
 
     if (!jobAddress || !creatorEmail || !creatorAddress) {
       return { statusCode: 400, body: 'Missing required fields' };
@@ -18,6 +18,7 @@ export const handler: Handler  = async (event) => {
     const blobKey = jobAddress.toLowerCase();
     const payload = {
       jobAddress,
+      jobId,
       creatorEmail,
       freelancerAddress,
       creatorAddress,

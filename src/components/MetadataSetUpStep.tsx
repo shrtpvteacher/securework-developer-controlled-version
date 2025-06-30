@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { uploadMetadataToIPFS } from '../logic/ipfsUploader';
 import { Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   clientAddress: string;
@@ -34,6 +35,8 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
     setFormData({ ...formData, [field]: [...formData[field], ''] });
   };
 
+  const navigate = useNavigate();
+
   const handleUpload = async () => {
     setIsUploading(true);
     const metadata = {
@@ -47,13 +50,22 @@ const MetadataSetUpStep: React.FC<Props> = ({ clientAddress, contractCreationFee
       const uri = await uploadMetadataToIPFS(metadata);
       setUploadedURI(uri);
       setUploadedMetadata(metadata);
-    } catch (err) {
-      console.error('IPFS upload failed:', err);
-    } finally {
-      setIsUploading(false);
-    }
-  };
 
+      // Redirect immediately to preview page with router state
+    navigate('/metadata-preview', {
+      state: {
+        metadata,
+        metadataURI: uri,
+        clientEmail: '', // pass client email if you have it here
+      },
+    });
+  } catch (err) {
+    console.error('IPFS upload failed:', err);
+  } finally {
+    setIsUploading(false);
+  }
+};
+    
   return (
     <div className="space-y-4 bg-gray-100 p-6 shadow-2xl">
          <h2 className=" text-lg font-semibold mb-2">Job Title</h2>
