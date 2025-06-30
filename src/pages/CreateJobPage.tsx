@@ -145,7 +145,7 @@ const CreateJobPage: React.FC = () => {
 
       {/* Email input card */}
       <div className="bg-gray-100 p-4 rounded-md">
-        <label className="text-center block font-semibold mb-1">Enter Email Address For Deliverables Notifications</label>
+        <label className="text-center  text-lg block font-semibold mb-1">Enter Email Address For Deliverables Notifications</label>
         <input
           type="email"
           placeholder="Enter your email address"
